@@ -18,6 +18,20 @@ Make a clear list of features that work/dont work
 
 ## Adventurer Subclasses
 
-# **MasterChef**
 # **Barista**
+- special: rating
+- attack: make a really bad drink that makes the enemy throw up
+- support: make a really delicious drink, increasing own HP
+- special attack: throwing drinks, taking away HP for more damage
+- passive ability: if HP is below 50%, damage is increased by 20%
+# **PastryChef**
+- special: sugar
+- attack: make a pastry with raw eggs so that the opponent gets salmonella. They will then lose HP at every subsequent turn until they are healed by either a teammate or themself.
+- support: make a really good cake that cheers up their teammates
+- special attack: if they have enough sugar, they can do their normal attack on multiple opponents
+- passive ability: when sugar is above 70%, salmonella status effect induced by the special effect deals more damage
 # **PrepChef**
+- special: seasoning
+- attack: steals ingredients from their opponent, decreasing their special attribute
+- support: heals everyone on their team
+- passive ability: if seasoning is above 60%, their support also increases teammate damage
