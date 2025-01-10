@@ -39,6 +39,25 @@ public class Game{
   public static void drawText(String s,int startRow, int startCol){
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    String[] queue = s.split(" ");
+    Text.go(startRow, startCol);
+    int col=startCol;
+    int row=startRow;
+    for (int i=0; i<queue.length; i++) {
+      if (col+queue[i].length()>WIDTH) {
+        row++;
+        Text.go(row, startCol);
+        col=startCol;
+      }
+      System.out.print(queue[i]);
+      if (col+queue[i].length()<WIDTH) {
+         Text.go(row, col+queue[i].length()+1);
+         col+=queue[i].length()+1;
+      } else {
+        Text.go(row, col+queue[i].length());
+        col+=queue[i].length();
+      }
+    }
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
 
@@ -134,6 +153,8 @@ public class Game{
     Text.hideCursor();
     Text.clear();
 
+    //testing the terminal functions
+    drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
 
     //Things to attack:
     //Make an ArrayList of Adventurers and add 1-3 enemies to it.
