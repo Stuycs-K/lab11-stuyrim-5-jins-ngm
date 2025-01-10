@@ -20,18 +20,19 @@ Make a clear list of features that work/dont work
 
 # **Barista**
 - special: rating
-- attack: make a really bad drink that makes the enemy throw up
+- attack: make a really bad drink that makes the enemy throw up, decreasing their HP
 - support: make a really delicious drink, increasing own HP
 - special attack: throwing drinks, taking away HP for more damage
-- passive ability: if HP is below 50%, damage is increased by 20%
+- passive ability: if HP is below 50%, damage of any attack (both normal and special attack) is increased by 20%
 # **PastryChef**
 - special: sugar
 - attack: make a pastry with raw eggs so that the opponent gets salmonella. They will then lose HP at every subsequent turn until they are healed by either a teammate or themself.
-- support: make a really good cake that cheers up their teammates
-- special attack: if they have enough sugar, they can do their normal attack on multiple opponents
-- passive ability: when sugar is above 70%, salmonella status effect induced by the special effect deals more damage
+- support: make a really good cake that cheers up a chosen teammate, increasing their HP
+- special attack: if they have enough sugar, they can use their normal attack on multiple opponents 
+- passive ability: when sugar is below 30%, there is a chance that their pastry also tastes really bad, so the opponent loses some HP upon eating it in addition to contracting salmonella
 # **PrepChef**
-- special: seasoning
+- special: money
 - attack: steals ingredients from their opponent, decreasing their special attribute
-- support: heals everyone on their team
-- passive ability: if seasoning is above 60%, their support also increases teammate damage
+- support: they went outside, bought ingredients and prepped them, healing everyone on their team and increasing their damage for the next move
+- special: they buy everyone on their team aprons, casting a shield (which has shieldHP based on money consumed)
+- passive ability: when casting the shield, there is a 50% chance the aprons are extra fancy and deal rebound damage when hit by an opponent
