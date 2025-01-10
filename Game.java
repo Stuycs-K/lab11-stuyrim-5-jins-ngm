@@ -15,7 +15,22 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-    System.out.println("\034[0;80H");
+    for (int i = 1; i < 81; i++){
+      Text.go(1,i);
+      System.out.print(Text.colorize(" ",Text.CYAN+Text.BACKGROUND));
+    }
+    for (int i = 1; i < 81; i++){
+      Text.go(30,i);
+      System.out.print(Text.colorize(" ",Text.CYAN+Text.BACKGROUND));
+    }
+    for (int i = 2; i < 29; i++){
+      Text.go(i,1);
+      System.out.print(Text.colorize("  ",Text.CYAN+Text.BACKGROUND));
+    }
+    for (int i = 2; i < 29; i++){
+      Text.go(i,79);
+      System.out.print(Text.colorize("  ",Text.CYAN+Text.BACKGROUND));
+    }
   }
 
   //Display a line of text starting at
