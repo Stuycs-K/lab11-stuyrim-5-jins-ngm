@@ -9,10 +9,6 @@ public class Barista extends Adventurer{
     rating = ratingMax/2;
   }
 
-  public Barista(String name, int hp){
-    this(name,hp);
-  }
-
   public Barista(String name){
     this(name,75);
   }
