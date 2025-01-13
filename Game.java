@@ -37,8 +37,10 @@ public class Game{
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
+    TextBox(startRow, startCol, HEIGHT-startRow, WIDTH-startCol, s);
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    /*
     String[] queue = s.split(" ");
     Text.go(startRow, startCol);
     int col=startCol;
@@ -58,6 +60,7 @@ public class Game{
         col+=queue[i].length();
       }
     }
+    */
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
 
@@ -74,6 +77,27 @@ public class Game{
   public static void TextBox(int row, int col, int width, int height, String text){
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    String[] queue = text.split(" ");
+    Text.go(row, col);
+    int currentCol=col;
+    int currentRow=row;
+    for (int i=0; i<queue.length; i++) {
+      if (currentCol+queue[i].length()>col+width) {
+        currentRow++;
+        Text.go(currentRow, col);
+        currentCol=col;
+      }
+      if (currentRow<row+height) {
+        System.out.print(queue[i]);
+        if (currentCol+queue[i].length()<col+width) {
+           Text.go(currentRow, currentCol+queue[i].length()+1);
+           currentCol+=queue[i].length()+1;
+        } else {
+          Text.go(currentRow, currentCol+queue[i].length());
+          currentCol+=queue[i].length();
+        }
+      }
+    }
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
 
@@ -154,6 +178,7 @@ public class Game{
     Text.clear();
 
     //testing the terminal functions
+    //drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
     drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
 
     //Things to attack:
