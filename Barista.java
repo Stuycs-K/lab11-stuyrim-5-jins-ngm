@@ -38,30 +38,38 @@ public class Barista extends Adventurer{
     return ratingMax;
   }
 
-  /*Deal 5-10 damage to opponent, restores 1 rating*/
+  /*Deal 4-8 damage to opponent, restores 1 rating*/
   public String attack(Adventurer other){
-    int damage = (int)(Math.random()*6)+5;
+    int damage = (int)(Math.random()*5)+4;
     other.applyDamage(damage);
     restoreSpecial(1);
     return this + " made a rotten drink for "+ other + " and dealt "+ damage +
     " points of damage. "+other+" threw up and "+this+" laughed.";
   }
 
-  /*Deal 2-15 damage to opponent, only if rating is high enough.
-  *Reduces rating by 4.
+  /*Deal 2-13 damage to opponent, only if rating is high enough.
+  *Reduces rating by 3.
   */
   public String specialAttack(Adventurer other){
     if(getSpecial() >= 4){
-      setSpecial(getSpecial()-3;
-      int damage = (int)(Math.random()*10+Math.random()*5)+2;
-      other.applyDamage(damage);
+      setSpecial(getSpecial()-3);
+      int ownDamage = (int)(Math.random()*8)+1;
+      this.applyDamage(ownDamage);
+      if (ownDamage >= 4){
+        int damage = (int)(Math.random()*10)+4;
+        other.applyDamage(damage);
+      }
+      if (ownDamage < 4){
+        int damage = (int)(Math.random()*5)+2;
+        other.applyDamage(damage);
+      }
       if (damage <= 4){
         return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
-        " points of damage and received a bad review."
+        " points of damage, received a bad review, and lost " + ownDamage+ " points of damage."
       }
       else{
         return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
-        " points of damage and received a bad review."
+        " points of damage, received a bad review, and lost " + ownDamage+ " points of damage."
       }
     }else{
       return this+"'s rating is too low to throw a drink. Instead "+attack(other);
