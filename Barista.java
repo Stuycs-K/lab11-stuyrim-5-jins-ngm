@@ -7,6 +7,7 @@ public class Barista extends Adventurer{
     super(name,hp);
     ratingMax = 10;
     rating = ratingMax/2;
+    setSalmonella(false);
   }
 
   public Barista(String name){
@@ -61,11 +62,11 @@ public class Barista extends Adventurer{
       }
       if (damage <= 4){
         return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
-        " points of damage, received a bad review, and lost " + ownDamage+ " points of damage."
+        " points of damage, received a bad review, and lost " + ownDamage+ " points of damage.";
       }
       else{
         return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
-        " points of damage, received a bad review, and lost " + ownDamage+ " points of damage."
+        " points of damage, received a bad review, and lost " + ownDamage+ " points of damage.";
       }
     }else{
       return this+"'s rating is too low to throw a drink. Instead "+attack(other);

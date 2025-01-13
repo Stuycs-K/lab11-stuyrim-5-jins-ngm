@@ -7,10 +7,11 @@ public class PastryChef extends Adventurer{
     super(name,hp);
     sugar = 15;
     sugar = sugarMax/2;
+    setSalmonella(false);
   }
 
   public PastryChef(String name){
-    this(name,24);
+    this(name,50);
   }
 
   public PastryChef(){
