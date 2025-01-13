@@ -23,11 +23,11 @@ public class Game{
       Text.go(30,i);
       System.out.print(Text.colorize(" ",Text.CYAN+Text.BACKGROUND));
     }
-    for (int i = 2; i < 29; i++){
+    for (int i = 2; i < 30; i++){
       Text.go(i,1);
       System.out.print(Text.colorize("  ",Text.CYAN+Text.BACKGROUND));
     }
-    for (int i = 2; i < 29; i++){
+    for (int i = 2; i < 30; i++){
       Text.go(i,79);
       System.out.print(Text.colorize("  ",Text.CYAN+Text.BACKGROUND));
     }
