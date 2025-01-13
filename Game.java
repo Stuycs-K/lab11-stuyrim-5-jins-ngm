@@ -37,8 +37,10 @@ public class Game{
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
+    TextBox(startRow, startCol, HEIGHT-startRow, WIDTH-startCol, s);
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
+    /*
     String[] queue = s.split(" ");
     Text.go(startRow, startCol);
     int col=startCol;
@@ -58,6 +60,7 @@ public class Game{
         col+=queue[i].length();
       }
     }
+    */
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
 
@@ -176,7 +179,7 @@ public class Game{
 
     //testing the terminal functions
     //drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
-    TextBox(20, 70, 10, 3, "the quick brown fox jumps over the lazy dog.");
+    drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
 
     //Things to attack:
     //Make an ArrayList of Adventurers and add 1-3 enemies to it.
