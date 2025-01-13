@@ -38,28 +38,33 @@ public class Barista extends Adventurer{
     return ratingMax;
   }
 
-  /*Deal 15-25 damage to opponent, restores 1 rating*/
+  /*Deal 5-10 damage to opponent, restores 1 rating*/
   public String attack(Adventurer other){
-    int damage = (int)(Math.random()*11)+15;
+    int damage = (int)(Math.random()*6)+5;
     other.applyDamage(damage);
     restoreSpecial(1);
-    return this + " threw a rotten drink at "+ other + " and dealt "+ damage +
-    " points of damage. They then increase their rating.";
+    return this + " made a rotten drink for "+ other + " and dealt "+ damage +
+    " points of damage. "+other+" threw up and "+this+" laughed.";
   }
 
-  /*Deal 3-12 damage to opponent, only if caffeine is high enough.
-  *Reduces caffeine by 8.
+  /*Deal 2-15 damage to opponent, only if rating is high enough.
+  *Reduces rating by 4.
   */
   public String specialAttack(Adventurer other){
-    if(getSpecial() >= 8){
-      setSpecial(getSpecial()-8);
-      int damage = (int)(Math.random()*5+Math.random()*5)+3;
+    if(getSpecial() >= 4){
+      setSpecial(getSpecial()-3;
+      int damage = (int)(Math.random()*10+Math.random()*5)+2;
       other.applyDamage(damage);
-      return this + " used their "+preferredLanguage+
-      " skills to hack the matrix. "+
-      " This glitched out "+other+" dealing "+ damage +" points of damage.";
+      if (damage <= 4){
+        return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
+        " points of damage and received a bad review."
+      }
+      else{
+        return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
+        " points of damage and received a bad review."
+      }
     }else{
-      return "Not enough caffeine to use the ultimate code. Instead "+attack(other);
+      return this+"'s rating is too low to throw a drink. Instead "+attack(other);
     }
 
   }
