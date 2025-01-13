@@ -22,7 +22,7 @@ Make a clear list of features that work/dont work
 - special: rating
 - attack: make a really bad drink that makes the enemy throw up, decreasing their HP
 - support: make a really delicious drink, increasing own HP
-- special attack: throwing drinks, taking away HP for more damage
+- special attack: throwing drinks, taking away own HP for more damage
 - passive ability: if HP is below 50%, damage of any attack (both normal and special attack) is increased by 20%
 # **PastryChef**
 - special: sugar
