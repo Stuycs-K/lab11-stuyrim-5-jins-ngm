@@ -79,14 +79,14 @@ public class Game{
     int currentCol=col;
     int currentRow=row;
     for (int i=0; i<queue.length; i++) {
+      if (currentCol+queue[i].length()>col+width) {
+        currentRow++;
+        Text.go(currentRow, col);
+        currentCol=col;
+      }
       if (currentRow<row+height) {
-        if (currentCol+queue[i].length()>currentCol+width) {
-          currentRow++;
-          Text.go(currentRow, col);
-          currentCol=col;
-        }
         System.out.print(queue[i]);
-        if (currentCol+queue[i].length()<currentCol+width) {
+        if (currentCol+queue[i].length()<col+width) {
            Text.go(currentRow, currentCol+queue[i].length()+1);
            currentCol+=queue[i].length()+1;
         } else {
@@ -176,7 +176,7 @@ public class Game{
 
     //testing the terminal functions
     //drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
-    TextBox(20, 70, 9, 10, "the quick brown fox jumps over the lazy dog.");
+    TextBox(20, 70, 10, 3, "the quick brown fox jumps over the lazy dog.");
 
     //Things to attack:
     //Make an ArrayList of Adventurers and add 1-3 enemies to it.
