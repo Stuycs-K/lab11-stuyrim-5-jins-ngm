@@ -104,6 +104,7 @@ public class Game{
         TextBox(startRow, 2+i*27/party.size(), 9, 1, member);
         TextBox(startRow+1, 2+i*27/party.size(), 9, 1, "HP: "+member.HP());
         TextBox(startRow+1, 2+i*27/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
+        TextBox(startRow+1, 2+i*27/party.size(), 9, 1, "hasSalmonella: "+member.hasSalmonella());
       }
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       //YOUR CODE HERE
