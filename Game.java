@@ -37,30 +37,9 @@ public class Game{
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
-    TextBox(startRow, startCol, HEIGHT-startRow, WIDTH-startCol, s);
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
-    /*
-    String[] queue = s.split(" ");
-    Text.go(startRow, startCol);
-    int col=startCol;
-    int row=startRow;
-    for (int i=0; i<queue.length; i++) {
-      if (col+queue[i].length()>WIDTH) {
-        row++;
-        Text.go(row, startCol);
-        col=startCol;
-      }
-      System.out.print(queue[i]);
-      if (col+queue[i].length()<WIDTH) {
-         Text.go(row, col+queue[i].length()+1);
-         col+=queue[i].length()+1;
-      } else {
-        Text.go(row, col+queue[i].length());
-        col+=queue[i].length();
-      }
-    }
-    */
+    TextBox(startRow, startCol, HEIGHT-startRow, WIDTH-startCol, s);
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
 
@@ -120,7 +99,12 @@ public class Game{
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
-
+      for (int i=0; i<party.size(); i++) {
+        Adventurer member = party.get(i);
+        TextBox(startRow, 2+i*27/party.size(), 9, 1, member);
+        TextBox(startRow+1, 2+i*27/party.size(), 9, 1, "HP: "+member.HP());
+        TextBox(startRow+1, 2+i*27/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
+      }
       /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       //YOUR CODE HERE
       /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
