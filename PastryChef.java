@@ -37,11 +37,14 @@ public class PastryChef extends Adventurer{
 
   /*Deal 2-7 damage to opponent, restores 2 caffeine*/
   public String attack(Adventurer other){
-    int damage = (int)(Math.random()*6)+2;
-    other.applyDamage(damage);
-    restoreSpecial(2);
-    return this + " attacked "+ other + " and dealt "+ damage +
-    " points of damage. They then take a sip of their coffee.";
+    String additional="";
+    if (sugar<0.3*sugarMax) {
+      int damage = (int)(Math.random()*6)+2;
+      other.applyDamage(damage);
+      additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+" thus sustains "+damage+" points of damage.";
+    }
+    other.setSalmonella(true);
+    return this + " made a pastry with raw eggs ad fed it to "+ other + ", giving them salmonella. "+additional;
   }
 
   /*Deal 3-12 damage to opponent, only if caffeine is high enough.
