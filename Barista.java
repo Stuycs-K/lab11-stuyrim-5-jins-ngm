@@ -7,7 +7,6 @@ public class Barista extends Adventurer{
     super(name,hp);
     ratingMax = 10;
     rating = ratingMax/2;
-    setSalmonella(false);
   }
 
   public Barista(String name){

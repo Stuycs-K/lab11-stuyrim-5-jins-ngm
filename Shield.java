@@ -7,6 +7,7 @@ public class PrepChef extends Adventurer{
     super(name,hp);
     moneyMax = 10;
     money = moneyMax/2;
+    setSalmonella(false);
   }
 
   public PrepChef(String name){

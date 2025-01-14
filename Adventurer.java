@@ -2,7 +2,7 @@ import java.util.Random;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  private boolean salmonella;
+  private boolean salmonella, shielded;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -70,6 +70,8 @@ public abstract class Adventurer{
     this.name = name;
     this.HP = hp;
     this.maxHP = hp;
+    this.salmonella=false;
+    this.shielded=false;
   }
 
   //toString method
@@ -108,5 +110,9 @@ public abstract class Adventurer{
 
   public void setSalmonella(boolean b) {
     salmonella=b;
+  }
+
+  public void setShielded(boolean b) {
+    shielded=b;
   }
 }
