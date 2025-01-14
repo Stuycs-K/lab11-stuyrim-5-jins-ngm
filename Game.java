@@ -85,14 +85,14 @@ public class Game{
 
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
-    public static Adventurer createRandomAdventurer(){
+    public static Adventurer createRandomAdventurer(ArrayList<Adventurer> party){
       int type = (int)(3*Math.random());
       if (type==0) {
-        return new Barista();
+        return new Barista("Starry", party);
       } else if (type==1) {
-        return new PastryChef();
+        return new PastryChef("Maddie", party);
       } else {
-        return new PrepChef();
+        return new PrepChef("Madeline", party);
       }
     }
 
@@ -108,8 +108,8 @@ public class Game{
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
       for (int i=0; i<party.size(); i++) {
         Adventurer member = party.get(i);
-        TextBox(startRow, 2+i*27/party.size(), 9, 1, member);
-        TextBox(startRow+1, 2+i*27/party.size(), 9, 1, "HP: "+member.HP());
+        TextBox(startRow, 2+i*27/party.size(), 9, 1, member.toString());
+        TextBox(startRow+1, 2+i*27/party.size(), 9, 1, "HP: "+member.getHP());
         TextBox(startRow+1, 2+i*27/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
         TextBox(startRow+1, 2+i*27/party.size(), 9, 1, "hasSalmonella: "+member.hasSalmonella());
       }
