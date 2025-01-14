@@ -1,20 +1,17 @@
+import java.util.ArrayList;
 public class PastryChef extends Adventurer{
   int sugar, sugarMax;
 
   /*the other constructors ultimately call the constructor
   *with all parameters.*/
-  public PastryChef(String name, int hp){
-    super(name,hp);
+  public PastryChef(String name, int hp, ArrayList<Adventurer> party){
+    super(name,hp,party);
     sugar = 15;
     sugar = sugarMax/2;
   }
 
-  public PastryChef(String name){
-    this(name,50);
-  }
-
-  public PastryChef(){
-    this("Madeline");
+  public PastryChef(String name,ArrayList<Adventurer> party){
+    this(name,50, party);
   }
 
   /*The next 8 methods are all required because they are abstract:*/

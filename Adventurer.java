@@ -63,11 +63,11 @@ public abstract class Adventurer{
 
   //You did it wrong if this happens.
   public Adventurer(){
-    this("Lester-the-noArg-constructor-string");
+    this("Lester-the-noArg-constructor-string", new ArrayList<Adventurer>());
   }
 
-  public Adventurer(String name){
-    this(name, 10, new ArrayList<Adventurer>());
+  public Adventurer(String name, ArrayList<Adventurer> party){
+    this(name, 10, party);
   }
 
   public Adventurer(String name, int hp, ArrayList<Adventurer> party){
@@ -75,7 +75,7 @@ public abstract class Adventurer{
     this.HP = hp;
     this.maxHP = hp;
     this.salmonella=false;
-    this.shielded=false;
+    this.shield=null;
     this.buffed=false;
     this.party=party;
   }
@@ -134,7 +134,7 @@ public abstract class Adventurer{
     salmonella=b;
   }
 
-  public setBuffed(boolean b) {
+  public void setBuffed(boolean b) {
     buffed=b;
   }
 

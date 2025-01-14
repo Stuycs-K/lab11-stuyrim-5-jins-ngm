@@ -1,20 +1,17 @@
+import java.util.ArrayList;
 public class PrepChef extends Adventurer{
   int money, moneyMax;
 
   /*the other constructors ultimately call the constructor
   *with all parameters.*/
-  public PrepChef(String name, int hp){
-    super(name,hp);
+  public PrepChef(String name, int hp, ArrayList<Adventurer> party){
+    super(name,hp,party);
     moneyMax = 10;
     money = moneyMax/2;
   }
 
-  public PrepChef(String name){
-    this(name,75);
-  }
-
-  public PrepChef(){
-    this("Maddie");
+  public PrepChef(String name, ArrayList<Adventurer> party){
+    this(name,75,party);
   }
 
   /*The next 8 methods are all required because they are abstract:*/
@@ -40,7 +37,7 @@ public class PrepChef extends Adventurer{
     setSpecial(getSpecial()-2);
     other.setSpecial(other.getSpecial()-removed);
     return this + " stole ingredients from "+ other + " and took away "+ removed +
-    other.getSpecialName+". "+this+" celebrates.";
+    other.getSpecialName()+". "+this+" celebrates.";
   }
 
   /*Deal 2-13 damage to opponent, only if money is high enough.
@@ -89,7 +86,7 @@ public class PrepChef extends Adventurer{
     }
     String s= this+" went outside, bought ingredients, and prepped them, restoring "+hp+" HP and "+specialRestore+" ";
     for (int i=0; i<getParty().size(); i++) {
-      s+=getParty().get(i).getSpecialName;
+      s+=getParty().get(i).getSpecialName();
       if (i<getParty().size()-1) {
         s+="/";
       }
