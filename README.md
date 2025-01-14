@@ -35,4 +35,4 @@ Make a clear list of features that work/dont work
 - attack: steals ingredients from their opponent, decreasing their special attribute
 - support: they went outside, bought ingredients and prepped them, increasing HP and special of everyone in their party and increasing their damage for the next move
 - special: they buy everyone on their team aprons, casting a shield (which has shieldHP based on money consumed)
-- passive ability: when casting the shield, there is a 50% chance the aprons are extra fancy and deal rebound damage when hit by an opponent
+- passive ability: when casting the shield, there is a 50% chance the aprons are extra fancy and deal rebound damage when hit by an opponent. If a shield is cast while an existing shield is still up, it will replace the existing shield.
