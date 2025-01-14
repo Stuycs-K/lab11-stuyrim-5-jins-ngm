@@ -48,36 +48,14 @@ public class PrepChef extends Adventurer{
   *Reduces money by 3.
   */
   public String specialAttack(Adventurer other){
-    if(getSpecial() >= 4){
-      setSpecial(getSpecial()-3);
+    int moneySpent = 3+(int)(Math.random()*3);
+    if(getSpecial() >= moneySpent){
+      setSpecial(getSpecial()-moneySpent);
       int ownDamage = (int)(Math.random()*8)+1;
       this.applyDamage(ownDamage);
-      if (ownDamage >= 4){
-        int damage = (int)(Math.random()*10)+4;
-        other.applyDamage(damage);
-      }
-      if (ownDamage < 4){
-        int damage = (int)(Math.random()*5)+2;
-        other.applyDamage(damage);
-      }
-      if ((damage <= 4) && (this.getmaxHP/2 > this.getHP)){
-        return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + (ownDamage * 1.2) + " points of damage.";
-      }
-      if (damage <= 4){
-        return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
-      }
-      if ((damage > 4) && (this.getmaxHP/2 > this.getHP)){
-        return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + (ownDamage * 1.2) + " points of damage.";
-      }
-      else{
-        return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
-      }
+      return this+" went out and spent "+moneySpent+" on buying everyone aprons! ";
     }else{
-      return this+"'s rating is too low to throw a drink. Instead "+attack(other);
+      return this+" wanted to go out and buy everyone aprons, but didn't have enough money. Instead, "+attack(other);
     }
 
   }
