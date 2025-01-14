@@ -62,27 +62,22 @@ public class Barista extends Adventurer{
       }
       if (damage <= 4){
         return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
-        " points of damage, received a bad review, and lost " + ownDamage+ " points of damage.";
+        " points of damage, but also received a bad review and lost " + ownDamage+ " points of damage.";
       }
       else{
         return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
-        " points of damage, received a bad review, and lost " + ownDamage+ " points of damage.";
+        " points of damage, but also received a bad review and lost " + ownDamage+ " points of damage.";
       }
     }else{
       return this+"'s rating is too low to throw a drink. Instead "+attack(other);
     }
 
   }
-  /*Restores 5 special to other*/
-  public String support(Adventurer other){
-    return "Gives a coffee to "+other+" and restores "
-    + other.restoreSpecial(5)+" "+other.getSpecialName();
-  }
-  /*Restores 6 special and 1 hp to self.*/
+  /*Increases rating by 3 (restores special) and 10 hp to self.*/
   public String support(){
-    int hp = 1;
+    int hp = 10;
     setHP(getHP()+hp);
-    return this+" drinks a coffee to restores "+restoreSpecial(6)+" "
+    return this+" makes and drinks a delicious matcha tea to "+restoreSpecial(3)+" "
     + getSpecialName()+ " and "+hp+" HP";
   }
 }
