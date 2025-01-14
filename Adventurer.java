@@ -1,8 +1,12 @@
 import java.util.Random;
+import java.util.ArrayList;
+
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
-  private boolean salmonella, shielded;
+  private boolean salmonella, buffed;
+  private Shield shield;
+  private ArrayList<Adventurer> party;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -63,15 +67,17 @@ public abstract class Adventurer{
   }
 
   public Adventurer(String name){
-    this(name, 10);
+    this(name, 10, new ArrayList<Adventurer>());
   }
 
-  public Adventurer(String name, int hp){
+  public Adventurer(String name, int hp, ArrayList<Adventurer> party){
     this.name = name;
     this.HP = hp;
     this.maxHP = hp;
     this.salmonella=false;
     this.shielded=false;
+    this.buffed=false;
+    this.party=party;
   }
 
   //toString method
@@ -99,6 +105,22 @@ public abstract class Adventurer{
     return salmonella;
   }
 
+  public boolean isShielded() {
+    return !(shield==null);
+  }
+
+  public Shield getShield() {
+    return shield;
+  }
+
+  public boolean isBuffed() {
+    return buffed;
+  }
+
+  public ArrayList<Adventurer> getParty() {
+    return party;
+  }
+
   //Set Methods
   public void setHP(int health){
     this.HP = health;
@@ -112,7 +134,11 @@ public abstract class Adventurer{
     salmonella=b;
   }
 
-  public void setShielded(boolean b) {
-    shielded=b;
+  public setBuffed(boolean b) {
+    buffed=b;
+  }
+
+  public void setShield(Shield s) {
+    shield=s;
   }
 }

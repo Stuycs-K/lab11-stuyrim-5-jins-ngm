@@ -86,6 +86,11 @@ public class Barista extends Adventurer{
     }
 
   }
+
+  public String support(Adventurer other){
+    return "nothing to see here";
+  }
+
   /*Increases rating by 3 (restores special) and 10 hp to self.*/
   public String support(){
     int hp = 10;

@@ -50,19 +50,51 @@ public class PrepChef extends Adventurer{
     int moneySpent = 3+(int)(Math.random()*3);
     if(getSpecial() >= moneySpent){
       setSpecial(getSpecial()-moneySpent);
-      int ownDamage = (int)(Math.random()*8)+1;
-      this.applyDamage(ownDamage);
-      return this+" went out and spent "+moneySpent+" on buying everyone aprons! ";
+      int shieldHP = 5*moneySpent/2;
+      boolean rebound;
+      if (Math.random()>0.5) {
+        rebound=true;
+      } else {
+        rebound=false;
+      }
+      Shield s = new Shield(shieldHP, rebound, other);
+      for (int i=0; i<getParty().size(); i++) {
+        Adventurer member=getParty().get(i);
+        member.setShield(s);
+      }
+      String msg = this+" went out and spent "+moneySpent+" on buying everyone aprons! They are now shielded from potential attack. ";
+      if (rebound) {
+        msg+="In addition, these aprons will deal rebound damage whenever "+other+" attacks.";
+      }
+      return msg;
     }else{
       return this+" wanted to go out and buy everyone aprons, but didn't have enough money. Instead, "+attack(other);
     }
 
   }
+
+  public String support(Adventurer other){
+    return support();
+  }
+
   /*Increases money by 3 (restores special) and 10 hp to self.*/
   public String support(){
-    int hp = 10;
-    setHP(getHP()+hp);
-    return this+" makes and drinks a delicious matcha tea to add "+restoreSpecial(3)+" to their "
-    + getSpecialName()+ " and "+hp+" HP";
+    int hp = (int)(Math.random()*4)+3;
+    int specialRestore = 3+(int)(Math.random())+(int)(Math.random());
+    for (int i=0; i<getParty().size(); i++) {
+      Adventurer member=getParty().get(i);
+      member.setHP(member.getHP()+hp);
+      member.restoreSpecial(specialRestore);
+      member.setBuffed(true);
+    }
+    String s= this+" went outside, bought ingredients, and prepped them, restoring "+hp+" HP and "+specialRestore+" ";
+    for (int i=0; i<getParty().size(); i++) {
+      s+=getParty().get(i).getSpecialName;
+      if (i<getParty().size()-1) {
+        s+="/";
+      }
+    }
+    s+=" for their party. They are so excited to cook that everyone's moves are more effective on their next turn.";
+    return s;
   }
 }
