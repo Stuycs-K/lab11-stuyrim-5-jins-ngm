@@ -40,8 +40,14 @@ public class Barista extends Adventurer{
     int damage = (int)(Math.random()*5)+4;
     other.applyDamage(damage);
     restoreSpecial(1);
-    return this + " made a rotten drink for "+ other + " and dealt "+ damage +
-    " points of damage. "+other+" threw up and "+this+" laughed.";
+    if (this.getmaxHP/2 > this.getHP){
+      return this + " made a rotten drink for "+ other + " and dealt "+ (damage * 1.2) +
+      " points of damage. "+other+" threw up and "+this+" laughed.";
+    } 
+    else{
+      return this + " made a rotten drink for "+ other + " and dealt "+ damage +
+      " points of damage. "+other+" threw up and "+this+" laughed.";
+    }
   }
 
   /*Deal 2-13 damage to opponent, only if rating is high enough.
