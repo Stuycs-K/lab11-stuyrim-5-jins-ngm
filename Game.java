@@ -113,20 +113,21 @@ public class Game{
         TextBox(startRow+1, 2+i*27/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
         TextBox(startRow+1, 2+i*27/party.size(), 9, 1, "hasSalmonella: "+member.hasSalmonella());
       }
-      /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-      //YOUR CODE HERE
-      /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     }
 
 
   //Use this to create a colorized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
     String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
-    //COLORIZE THE OUTPUT IF HIGH/LOW:
-    // under 25% : red
-    // under 75% : yellow
-    // otherwise : white
-    return output;
+    if (maxHP/2 > hp){
+      return Text.colorize(output, BOLD, RED);
+    }
+    if (maxHP*(3/4)>hp){
+      return Text.colorize(output, BOLD, YELLOW);
+    }
+    else{
+      return Text.colorize(output, BOLD, WHITE);
+    }
   }
 
 
