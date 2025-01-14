@@ -12,9 +12,6 @@ public class Game{
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     for (int i = 1; i < 81; i++){
       Text.go(1,i);
       System.out.print(Text.colorize(" ",Text.CYAN+Text.BACKGROUND));
@@ -37,10 +34,7 @@ public class Game{
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
     TextBox(startRow, startCol, HEIGHT-startRow, WIDTH-startCol, s);
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
 
   /*Use this method to place text on the screen at a particular location.
@@ -53,9 +47,8 @@ public class Game{
   *@param width the number of characters per row
   *@param height the number of rows
   */
+
   public static void TextBox(int row, int col, int width, int height, String text){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
     String[] queue = text.split(" ");
     Text.go(row, col);
     int currentCol=col;
@@ -77,22 +70,27 @@ public class Game{
         }
       }
     }
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   }
-
-
-
 
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
     public static Adventurer createRandomAdventurer(ArrayList<Adventurer> party){
       int type = (int)(3*Math.random());
       if (type==0) {
-        return new Barista("Starry", party);
+        String[] names = new String[]{"Camellia", "Chamomile", "Rose", "Starry", "Lavender", "Jasmine", "Cinnamon", "Lemon"}
+        "Juniper", "Sage", "Basil"};
+        name = names((int) Math.random()*names.length);
+        return new Barista(name, party);
       } else if (type==1) {
-        return new PastryChef("Maddie", party);
+        String[] names = new String[]{"Maple", "Hazel", "Reese", "Charlotte", "Candy", "Coco", "Amandine", "Madeline",
+        "Milo", "Sugar", "Taffy", "Graham"};
+        name = names((int) Math.random()*names.length);
+        return new PastryChef(name, party);
       } else {
-        return new PrepChef("Madeline", party);
+        String[] names = new String[]{"Brie", "Clementine", "Juniper", "Romaine", "Cherry", "Olive", "Apple", "Ringo", "Anise",
+        "Juniper", "Sage", "Basil", "Saffron"};
+        name = names((int) Math.random()*names.length);
+        return new PrepChef(name, party);
       }
     }
 
