@@ -116,10 +116,10 @@ public class Game{
   //Use this to create a colorized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
     String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
-    if (maxHP/2 > hp){
+    if (this.maxHP/2 > this.hp){
       return Text.colorize(output, Text.BOLD, Text.RED);
     }
-    if (maxHP*(3/4)>hp){
+    if (this.maxHP*(3/4)>this.hp){
       return Text.colorize(output, Text.BOLD, Text.YELLOW);
     }
     else{
@@ -138,7 +138,7 @@ public class Game{
 
     drawBackground();
 
-    //draw player party
+    drawParty(party, 3);
 
     //draw enemy party
 
@@ -234,13 +234,15 @@ public class Game{
         if(whichPlayer < party.size()){
           //This is a player turn.
           //Decide where to draw the following prompt:
+          Text.go(25, 4);
           String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
 
 
         }else{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
-          String prompt = "press enter to see monster's turn";
+          Text.go(27, 4);
+          String prompt = "press enter to see enemy's turn";
 
           partyTurn = false;
           whichOpponent = 0;
@@ -252,12 +254,20 @@ public class Game{
 
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
-        /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-        //YOUR CODE HERE
-        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-
+        if(input.equals("attack") || input.equals("a")){
+          enemies.get(whichOpponent).attack(party.get(whichPlayer));
+        }
+        else if(input.equals("special") || input.equals("sp")){
+          enemies.get(whichOpponent).specialAttack(party.get(whichPlayer));
+        }
+        else if(input.startsWith("su ") || input.startsWith("support ")){
+          //"support 0" or "su 0" or "su 2" etc.
+          //assume the value that follows su  is an integer.
+          int playerNumber = Integer.parseInt(input.substring(input.length()-1));
+          enemies.get(whichOpponent).support(enemies.get(playerNumber));
 
         //Decide where to draw the following prompt:
+        Text.go(27, 4);
         String prompt = "press enter to see next turn";
 
         whichOpponent++;
@@ -272,6 +282,7 @@ public class Game{
         turn++;
         partyTurn=true;
         //display this prompt before player's turn
+        Text.go(25, 4);
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
       }
 
