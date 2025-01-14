@@ -77,8 +77,7 @@ public class Game{
     public static Adventurer createRandomAdventurer(ArrayList<Adventurer> party){
       int type = (int)(3*Math.random());
       if (type==0) {
-        String[] names = new String[]{"Camellia", "Chamomile", "Rose", "Starry", "Lavender", "Jasmine", "Cinnamon", "Lemon"}
-        "Juniper", "Sage", "Basil"};
+        String[] names = new String[]{"Camellia", "Chamomile", "Rose", "Starry", "Lavender", "Jasmine", "Cinnamon", "Lemon"};
         name = names((int) Math.random()*names.length);
         return new Barista(name, party);
       } else if (type==1) {
@@ -225,7 +224,7 @@ public class Game{
           //"support 0" or "su 0" or "su 2" etc.
           //assume the value that follows su  is an integer.
           int playerNumber = Integer.parseInt(input.substring(input.length()-1));
-          party.get(whichPlayer).support(party.get(import java.util.*;
+          party.get(whichPlayer).support(party.get(playerNumber));
 public class Game{
   private static final int WIDTH = 80;
   private static final int HEIGHT = 30;
