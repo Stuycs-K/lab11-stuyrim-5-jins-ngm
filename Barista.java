@@ -60,13 +60,21 @@ public class Barista extends Adventurer{
         int damage = (int)(Math.random()*5)+2;
         other.applyDamage(damage);
       }
+      if ((damage <= 4) && (this.getmaxHP/2 > this.getHP)){
+        return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
+        " points of damage, but also received a bad review and lost " + (ownDamage * 1.2) + " points of damage.";
+      }
       if (damage <= 4){
         return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + ownDamage+ " points of damage.";
+        " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
+      }
+      if ((damage > 4) && (this.getmaxHP/2 > this.getHP)){
+        return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
+        " points of damage, but also received a bad review and lost " + (ownDamage * 1.2) + " points of damage.";
       }
       else{
         return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + ownDamage+ " points of damage.";
+        " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
       }
     }else{
       return this+"'s rating is too low to throw a drink. Instead "+attack(other);
@@ -77,7 +85,7 @@ public class Barista extends Adventurer{
   public String support(){
     int hp = 10;
     setHP(getHP()+hp);
-    return this+" makes and drinks a delicious matcha tea to "+restoreSpecial(3)+" "
+    return this+" makes and drinks a delicious matcha tea to add "+restoreSpecial(3)+" to their "
     + getSpecialName()+ " and "+hp+" HP";
   }
 }
