@@ -1,4 +1,4 @@
-public class PreChef extends Adventurer{
+public class PrepChef extends Adventurer{
   int money, moneyMax;
 
   /*the other constructors ultimately call the constructor

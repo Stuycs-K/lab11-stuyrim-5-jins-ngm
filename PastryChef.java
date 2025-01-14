@@ -61,14 +61,16 @@ public class PastryChef extends Adventurer{
   }
   /*Restores 5 special to other*/
   public String support(Adventurer other){
-    return this+" whips up a delicious pastry and feeds it to "+other+" and restores "
-    + other.restoreSpecial(5)+" "+other.getSpecialName();
+    int heal = 3+(int)(Math.random()*4);
+    other.setHP(other.getHP()+heal);
+    return this+" whips up a delicious pastry and feeds it to "+other+", restoring"
+    + other.restoreSpecial(5)+" "+other.getSpecialName()+" and "+heal+" HP.";
   }
   /*Restores 6 special and 1 hp to self.*/
   public String support(){
-    int hp = 1;
-    setHP(getHP()+hp);
-    return this+" drinks a coffee to restores "+restoreSpecial(6)+" "
-    + getSpecialName()+ " and "+hp+" HP";
+    int heal = 3+(int)(Math.random()*4);
+    setHP(getHP()+heal);
+    return this+" whips up a delicious pastry and feeds it to eats it, restoring"
+    + restoreSpecial(5)+" "+getSpecialName()+" and "+heal+" HP.";
   }
 }
