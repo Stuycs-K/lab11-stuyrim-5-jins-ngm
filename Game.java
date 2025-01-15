@@ -105,10 +105,10 @@ public class Game{
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
       for (int i=0; i<party.size(); i++) {
         Adventurer member = party.get(i);
-        TextBox(startRow, 3+i*78/party.size(), 9, 1, member.toString());
-        TextBox(startRow+1, 3+i*78/party.size(), 9, 1, "HP: "+member.getHP());
-        TextBox(startRow+2, 3+i*78/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
-        TextBox(startRow+3, 3+i*78/party.size(), 9, 1, "sick: "+member.hasSalmonella());
+        TextBox(startRow, 5+i*78/party.size(), 9, 1, member.toString());
+        TextBox(startRow+1, 5+i*78/party.size(), 9, 1, "HP: "+member.getHP());
+        TextBox(startRow+2, 5+i*78/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
+        TextBox(startRow+3, 5+i*78/party.size(), 9, 1, "sick: "+member.hasSalmonella());
       }
     }
 
@@ -138,7 +138,7 @@ public class Game{
 
     drawBackground();
 
-    drawParty(party, 3);
+    drawParty(party, 2);
     drawParty(enemies, 7);
     Text.go(29, 2);
 
@@ -169,7 +169,6 @@ public class Game{
 
     //testing the terminal functions
     //drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
-    drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
 
     //Things to attack:
     //Make an ArrayList of Adventurers and add 1-3 enemies to it.
