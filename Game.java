@@ -78,17 +78,17 @@ public class Game{
       int type = (int)(3*Math.random());
       if (type==0) {
         String[] names = new String[]{"Camellia", "Chamomile", "Rose", "Starry", "Lavender", "Jasmine", "Cinnamon", "Lemon"};
-        name = names((int) Math.random()*names.length);
+        String name = names[(int) Math.random()*names.length];
         return new Boss(name, party);
       } else if (type==1) {
         String[] names = new String[]{"Maple", "Hazel", "Reese", "Charlotte", "Candy", "Coco", "Amandine", "Madeline",
         "Milo", "Sugar", "Taffy", "Graham"};
-        name = names((int) Math.random()*names.length);
+        String name = names[(int) Math.random()*names.length];
         return new PastryChef(name, party);
       } else {
         String[] names = new String[]{"Brie", "Clementine", "Juniper", "Romaine", "Cherry", "Olive", "Apple", "Ringo", "Anise",
         "Juniper", "Sage", "Basil", "Saffron"};
-        name = names((int) Math.random()*names.length);
+        String name = names[(int) Math.random()*names.length];
         return new PrepChef(name, party);
       }
     }
@@ -116,10 +116,10 @@ public class Game{
   //Use this to create a colorized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
     String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
-    if (this.maxHP/2 > this.hp){
+    if (maxHP/2 > hp){
       return Text.colorize(output, Text.BOLD, Text.RED);
     }
-    if (this.maxHP*(3/4)>this.hp){
+    if (maxHP*(3/4)>hp){
       return Text.colorize(output, Text.BOLD, Text.YELLOW);
     }
     else{
@@ -134,11 +134,13 @@ public class Game{
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
-  public static void drawScreen(){
+  public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer> enemies){
 
     drawBackground();
 
     drawParty(party, 3);
+    drawParty(enemies, 7);
+    Text.go(29, 2);
 
     //draw enemy party
 
@@ -186,11 +188,9 @@ public class Game{
       }
     }
 
-    }
-
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
-    ArrayList<Adventurer> party = new ArrayList<>();
+    ArrayList<Adventurer> party = new ArrayList<Adventurer>();
     int partyCount = (int)(Math.random()*3)+2;
     for (int i = 0; i < partyCount; i++){
       party.add(createRandomAdventurer(party));
@@ -205,7 +205,7 @@ public class Game{
     //Draw the window border
 
     //You can add parameters to draw screen!
-    drawScreen();//initial state.
+    drawScreen(party, enemies);//initial state.
 
     //Main loop
 
@@ -234,7 +234,7 @@ public class Game{
           //assume the value that follows su  is an integer.
           int playerNumber = Integer.parseInt(input.substring(input.length()-1));
           party.get(whichPlayer).support(party.get(playerNumber));
-
+        }
         //You should decide when you want to re-ask for user input
         //If no errors:
         whichPlayer++;
@@ -296,7 +296,7 @@ public class Game{
       }
 
       //display the updated screen after input has been processed.
-      drawScreen();
+      drawScreen(party, enemies);
 
 
     }//end of main game loop
@@ -306,4 +306,4 @@ public class Game{
     quit();
   }
 }
-}
+  }
