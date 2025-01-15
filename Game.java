@@ -142,8 +142,6 @@ public class Game{
     drawParty(enemies, 7);
     Text.go(29, 2);
 
-    //draw enemy party
-
   }
 
   public static String userInput(Scanner in){
@@ -210,6 +208,7 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
+    Text.go(27, 4);
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
