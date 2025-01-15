@@ -176,6 +176,17 @@ public class Game{
     //If only 1 enemy is added it should be the boss class.
     //start with 1 boss and modify the code to allow 2-3 adventurers later.
     ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
+    int amount = (int)(Math.random()*3)+1;
+    if (amount == 1){
+      enemies.add(new PastryChef("Maple", enemies));
+    }
+    else{
+      for (int i = 0; i < amount; i++){
+        enemies.add(createRandomAdventurer(enemies));
+      }
+    }
+
+    }
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
