@@ -79,7 +79,7 @@ public class Game{
       if (type==0) {
         String[] names = new String[]{"Camellia", "Chamomile", "Rose", "Starry", "Lavender", "Jasmine", "Cinnamon", "Lemon"};
         name = names((int) Math.random()*names.length);
-        return new Barista(name, party);
+        return new Boss(name, party);
       } else if (type==1) {
         String[] names = new String[]{"Maple", "Hazel", "Reese", "Charlotte", "Candy", "Coco", "Amandine", "Madeline",
         "Milo", "Sugar", "Taffy", "Graham"};
@@ -178,7 +178,7 @@ public class Game{
     ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
     int enemyCount = (int)(Math.random()*3)+1;
     if (enemyCount == 1){
-      enemies.add(new Barista("Maple", enemies));
+      enemies.add(new Boss("Maple", enemies));
     }
     else{
       for (int i = 0; i < enemyCount; i++){
