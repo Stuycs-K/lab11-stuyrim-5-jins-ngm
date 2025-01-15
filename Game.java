@@ -105,10 +105,10 @@ public class Game{
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
       for (int i=0; i<party.size(); i++) {
         Adventurer member = party.get(i);
-        TextBox(startRow, 3+i*78/party.size(), 9, 1, member.toString());
-        TextBox(startRow+1, 3+i*78/party.size(), 9, 1, "HP: "+member.getHP());
-        TextBox(startRow+2, 3+i*78/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
-        TextBox(startRow+3, 3+i*78/party.size(), 9, 1, "sick: "+member.hasSalmonella());
+        TextBox(startRow, 3+i*78/party.size(), 78/party.size(), 1, member.toString());
+        TextBox(startRow+1, 3+i*78/party.size(), 78/party.size(), 1, "HP: "+member.getHP()+"/"+member.getmaxHP());
+        TextBox(startRow+2, 3+i*78/party.size(), 78/party.size(), 1, member.getSpecialName()+": "+member.getSpecial()+"/"+member.getSpecialMax());
+        TextBox(startRow+3, 3+i*78/party.size(), 78/party.size(), 1, "sick: "+member.hasSalmonella());
       }
     }
 
@@ -138,7 +138,7 @@ public class Game{
 
     drawBackground();
 
-    drawParty(party, 3);
+    drawParty(party, 2);
     drawParty(enemies, 7);
     Text.go(29, 2);
 
