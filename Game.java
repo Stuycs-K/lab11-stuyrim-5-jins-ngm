@@ -14,19 +14,19 @@ public class Game{
   public static void drawBackground(){
     for (int i = 1; i < 81; i++){
       Text.go(1,i);
-      System.out.print(Text.colorize(" ",Text.CYAN+Text.BACKGROUND));
+      System.out.print(Text.colorize("-",Text.BOLD,Text.CYAN));
     }
     for (int i = 1; i < 81; i++){
       Text.go(30,i);
-      System.out.print(Text.colorize(" ",Text.CYAN+Text.BACKGROUND));
+      System.out.print(Text.colorize("-",Text.BOLD,Text.CYAN));
     }
-    for (int i = 2; i < 30; i++){
+    for (int i = 1; i < 31; i++){
       Text.go(i,1);
-      System.out.print(Text.colorize("  ",Text.CYAN+Text.BACKGROUND));
+      System.out.print(Text.colorize("|",Text.BOLD,Text.CYAN));
     }
-    for (int i = 2; i < 30; i++){
-      Text.go(i,79);
-      System.out.print(Text.colorize("  ",Text.CYAN+Text.BACKGROUND));
+    for (int i = 1; i < 31; i++){
+      Text.go(i,80);
+      System.out.print(Text.colorize("|",Text.BOLD,Text.CYAN));
     }
   }
 
