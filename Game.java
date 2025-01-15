@@ -78,17 +78,17 @@ public class Game{
       int type = (int)(3*Math.random());
       if (type==0) {
         String[] names = new String[]{"Camellia", "Chamomile", "Rose", "Starry", "Lavender", "Jasmine", "Cinnamon", "Lemon"};
-        String name = names[(int) Math.random()*names.length];
+        String name = names[(int) (Math.random()*names.length)];
         return new Boss(name, party);
       } else if (type==1) {
         String[] names = new String[]{"Maple", "Hazel", "Reese", "Charlotte", "Candy", "Coco", "Amandine", "Madeline",
         "Milo", "Sugar", "Taffy", "Graham"};
-        String name = names[(int) Math.random()*names.length];
+        String name = names[(int) (Math.random()*names.length)];
         return new PastryChef(name, party);
       } else {
         String[] names = new String[]{"Brie", "Clementine", "Juniper", "Romaine", "Cherry", "Olive", "Apple", "Ringo", "Anise",
         "Juniper", "Sage", "Basil", "Saffron"};
-        String name = names[(int) Math.random()*names.length];
+        String name = names[(int) (Math.random()*names.length)];
         return new PrepChef(name, party);
       }
     }
@@ -105,10 +105,10 @@ public class Game{
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
       for (int i=0; i<party.size(); i++) {
         Adventurer member = party.get(i);
-        TextBox(startRow, 2+i*27/party.size(), 9, 1, member.toString());
-        TextBox(startRow+1, 2+i*27/party.size(), 9, 1, "HP: "+member.getHP());
-        TextBox(startRow+1, 2+i*27/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
-        TextBox(startRow+1, 2+i*27/party.size(), 9, 1, "hasSalmonella: "+member.hasSalmonella());
+        TextBox(startRow, 3+i*78/party.size(), 9, 1, member.toString());
+        TextBox(startRow+1, 3+i*78/party.size(), 9, 1, "HP: "+member.getHP());
+        TextBox(startRow+2, 3+i*78/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
+        TextBox(startRow+3, 3+i*78/party.size(), 9, 1, "sick: "+member.hasSalmonella());
       }
     }
 
