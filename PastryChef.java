@@ -6,7 +6,7 @@ public class PastryChef extends Adventurer{
   *with all parameters.*/
   public PastryChef(String name, int hp, ArrayList<Adventurer> party){
     super(name,hp,party);
-    sugarMax = 15;
+    sugarMax = 30;
     sugar = sugarMax/2;
   }
 

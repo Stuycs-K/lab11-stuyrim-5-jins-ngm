@@ -105,10 +105,17 @@ public class Game{
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
       for (int i=0; i<party.size(); i++) {
         Adventurer member = party.get(i);
+<<<<<<< HEAD
         TextBox(startRow, 3+i*78/party.size(), 78/party.size(), 1, member.toString());
         TextBox(startRow+1, 3+i*78/party.size(), 78/party.size(), 1, "HP: "+member.getHP()+"/"+member.getmaxHP());
         TextBox(startRow+2, 3+i*78/party.size(), 78/party.size(), 1, member.getSpecialName()+": "+member.getSpecial()+"/"+member.getSpecialMax());
         TextBox(startRow+3, 3+i*78/party.size(), 78/party.size(), 1, "sick: "+member.hasSalmonella());
+=======
+        TextBox(startRow, 5+i*78/party.size(), 9, 1, member.toString());
+        TextBox(startRow+1, 5+i*78/party.size(), 9, 1, "HP: "+member.getHP());
+        TextBox(startRow+2, 5+i*78/party.size(), 9, 1, member.getSpecialName()+": "+member.getSpecial());
+        TextBox(startRow+3, 5+i*78/party.size(), 9, 1, "sick: "+member.hasSalmonella());
+>>>>>>> c91e82a0536c51aa07e61e04e8c881264e82da9b
       }
     }
 
@@ -169,7 +176,6 @@ public class Game{
 
     //testing the terminal functions
     //drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
-    drawText("the quick brown fox jumps over the lazy dog.", 20, 70);
 
     //Things to attack:
     //Make an ArrayList of Adventurers and add 1-3 enemies to it.
