@@ -286,12 +286,13 @@ public class Game{
           drawText(" ", 26, i);
           drawText(" ", 27, i);
         }
-        String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-        drawText(preprompt, 26, 3);
+        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+        drawText(prompt, 26, 3);
         Text.go(27, 3);
         input = userInput(in);
 
-        //Process user input for the last Adventurer:
+        if (! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))) {
+            //Process user input for the last Adventurer:
         if(input.startsWith("attack") || input.startsWith("a")){
           whichOpponent = Integer.parseInt(input.substring(input.length()-1));
           msg = party.get(whichPlayer).attack(enemies.get(whichOpponent));
@@ -309,7 +310,7 @@ public class Game{
         //You should decide when you want to re-ask for user input
 
         //example debug statment
-        TextBox(15,41,38,4,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+        //TextBox(15,41,38,4,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
         //If no errors:
         //NOTE TO SELF: LATER FIND A WAY TO PRINT A MESSAGE THAT THEY DIED
@@ -324,18 +325,22 @@ public class Game{
         if(whichPlayer >= party.size()){
           partyTurn = false;
           whichPlayer = 0;
-          String prompt = "press enter to see enemy's turn";
+          prompt = "press enter to see enemy's turn";
           whichOpponent = 0;
           drawText(prompt, 26, 3);
           Text.go(27, 3);
         }
+        } else {
+          partyTurn=false;
+        }
+        
         //done with one party member
       }
       for (int i=2; i<80; i++) {
         drawText(" ", 26, i);
         drawText(" ", 27, i);
       }
-      while (!partyTurn){
+      while (!partyTurn && !(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
         //not the party turn!
 
         if ((enemies.size()!=0)&&(party.size()!=0)){
@@ -374,7 +379,6 @@ public class Game{
         if (whichOpponent>=enemies.size()) {
           partyTurn=true;
         }
-
       }//end of one enemy.
 
       //modify this if statement.
@@ -382,16 +386,13 @@ public class Game{
         //THIS BLOCK IS TO END THE ENEMY TURN
         //It only triggers after the last enemy goes.
         whichPlayer = 0;
+        whichOpponent = 0;
         turn++;
         partyTurn=true;
-        //display this prompt before player's turn
-        Text.go(25, 4);
-        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
       }
 
       //display the updated screen after input has been processed.
       drawScreen(party, enemies);
-
 
     }//end of main game loop
 
