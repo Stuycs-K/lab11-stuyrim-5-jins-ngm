@@ -36,7 +36,7 @@ public class PrepChef extends Adventurer{
     int removed = (int)(Math.random()*other.getSpecial());
     setSpecial(getSpecial()-2);
     other.setSpecial(other.getSpecial()-removed);
-    return this + " stole ingredients from "+ other + " and took away "+ removed +
+    return this + " stole ingredients from "+ other + " and took away "+ removed + " " +
     other.getSpecialName()+". "+this+" celebrates.";
   }
 

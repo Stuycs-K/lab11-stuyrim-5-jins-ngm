@@ -52,7 +52,7 @@ public class Game{
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
-    TextBox(startRow, startCol, HEIGHT-startRow, WIDTH-startCol, s);
+    TextBox(startRow, startCol, WIDTH-startCol, HEIGHT-startRow, s);
   }
 
   /*Use this method to place text on the screen at a particular location.
@@ -180,6 +180,18 @@ public class Game{
     Text.go(32,1);
   }
 
+  public static void printMessageLeft(String msg, String[] messageQueue) {
+    if (messageQueue[0]==null) {
+      messageQueue[0]=msg;
+      TextBox(12, 2, 38, 6, msg);
+    } else {
+      messageQueue[0]=messageQueue[1];
+      messageQueue[1]=msg;
+      TextBox(12, 2, 38, 6, messageQueue[0]);
+      TextBox(18, 2, 38, 6, messageQueue[1]);
+    }
+  }
+
   public static void run(){
     //Clear and initialize
     Text.hideCursor();
@@ -217,6 +229,8 @@ public class Game{
     int turn = 0;
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
+    String[] messageQueue = new String[2];
+    String msg = "message!";
     //Draw the window border
 
     //You can add parameters to draw screen!
@@ -225,34 +239,38 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
-    Text.go(26, 3);
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-
+    drawText(preprompt, 26, 3);
+    Text.go(27, 3);
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
       input = userInput(in);
-
-      //example debug statment
-      TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
       //display event based on last turn's input
       if(partyTurn){
 
         //Process user input for the last Adventurer:
-        if(input.equals("attack") || input.equals("a")){
-          party.get(whichPlayer).attack(enemies.get(whichOpponent));
+        if(input.startsWith("attack") || input.startsWith("a")){
+          whichOpponent = Integer.parseInt(input.substring(input.length()-1));
+          msg = party.get(whichPlayer).attack(enemies.get(whichOpponent));
         }
-        else if(input.equals("special") || input.equals("sp")){
-          party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
+        else if(input.startsWith("special ") || input.startsWith("sp ")){
+          whichOpponent = Integer.parseInt(input.substring(input.length()-1));
+          msg = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
           //"support 0" or "su 0" or "su 2" etc.
           //assume the value that follows su  is an integer.
           int playerNumber = Integer.parseInt(input.substring(input.length()-1));
-          party.get(whichPlayer).support(party.get(playerNumber));
+          msg = party.get(whichPlayer).support(party.get(playerNumber));
         }
         //You should decide when you want to re-ask for user input
+
+        //example debug statment
+        TextBox(15,41,38,4,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+
         //If no errors:
+        printMessageLeft(msg, messageQueue);
         whichPlayer++;
 
 
@@ -319,4 +337,3 @@ public class Game{
     quit();
   }
 }
-  }
