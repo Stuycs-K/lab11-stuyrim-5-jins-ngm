@@ -91,12 +91,7 @@ public abstract class Adventurer{
   }
 
   public int getHP(){
-    if (HP > maxHP){
-      return maxHP;
-    }
-    else{
-      return HP;
-    }
+    return HP;
   }
 
   public int getmaxHP(){
@@ -128,7 +123,12 @@ public abstract class Adventurer{
 
   //Set Methods
   public void setHP(int health){
-    this.HP = health;
+    if (health > maxHP){
+      this.HP = maxHP;
+    }
+    else{
+      this.HP = health;
+    }
   }
 
   public void setName(String s){
