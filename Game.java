@@ -194,38 +194,37 @@ public class Game{
     Text.go(32,1);
   }
 
-  public static void printMessage(String msg, String[] messageQueue, int col) {
-    if (messageQueue[0]==null) {
-      messageQueue[0]=msg;
-      TextBox(12, col, 38, 6, msg);
-    } else if (messageQueue[1]==null) {
-      messageQueue[1]=msg;
-      for (int i=12; i<=24; i++) {
-        for (int j=col; j<col+38; j++) {
-          TextBox(i, j, 1, 1, " ");
-        }
+  public static void printMessage(String msg, ArrayList<String> messageQueue, int col, int length) {
+    messageQueue.add(msg);
+    if (messageQueue.size()>length) {
+      messageQueue.remove(0);
+    }
+    for (int i=12; i<=24; i++) {
+      for (int j=col; j<col+col%2+36; j++) {
+        TextBox(i, j, 1, 1, " ");
       }
-      TextBox(12, col, 38, 6, messageQueue[0]);
-      TextBox(18, col, 38, 7, messageQueue[1]);
-    } else {
-      for (int i=12; i<=24; i++) {
-        for (int j=col; j<col+38; j++) {
-          TextBox(i, j, 1, 1, " ");
-        }
+    }
+    for (int i=0; i<messageQueue.size(); i++) {
+      if (i<messageQueue.size()-1) {
+        TextBox(12+i*12/length, col, 36, 12/length, messageQueue.get(i));
+      } else {
+        TextBox(12+i*12/length, col, 36, 12/length+1, messageQueue.get(i));
       }
-      messageQueue[0]=messageQueue[1];
-      messageQueue[1]=msg;
-      TextBox(12, col, 38, 6, messageQueue[0]);
-      TextBox(18, col, 38, 7, messageQueue[1]);
     }
   }
 
-  public static void checkIfDead(ArrayList<Adventurer> party) {
-    for (Adventurer a: party) {
+  public static int checkIfDead(ArrayList<Adventurer> party, ArrayList<String> messageQueueRight) {
+    int ans=0;
+    for (int i=0; i<party.size(); i++) {
+      Adventurer a = party.get(i);
       if (a.getHP()<=0) {
+        printMessage(a.toString()+" is out of HP and is no longer able to fight. They are forced to forfeit.", messageQueueRight, 42, 4);
         party.remove(a);
+        i--;
+        ans++;
       }
     }
+    return ans;
   }
 
   public static void run(){
@@ -265,8 +264,8 @@ public class Game{
     int turn = 0;
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
-    String[] messageQueueParty = new String[2];
-    String[] messageQueueEnemies = new String[2];
+    ArrayList<String> messageQueueLeft = new ArrayList<String>(2);
+    ArrayList<String> messageQueueRight = new ArrayList<String>(4);
     String msg = "message!";
     //Draw the window border
 
@@ -281,7 +280,7 @@ public class Game{
 
       //display event based on last turn's input
       //NOTE TO SELF make conditional to only do stuff if hp>0
-      while (partyTurn){
+      while (partyTurn && party.size()>0 && enemies.size()>0){
         for (int i=2; i<80; i++) {
           drawText(" ", 26, i);
           drawText(" ", 27, i);
@@ -292,44 +291,43 @@ public class Game{
         input = userInput(in);
 
         if (! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))) {
-            //Process user input for the last Adventurer:
-        if(input.startsWith("attack") || input.startsWith("a")){
-          whichOpponent = Integer.parseInt(input.substring(input.length()-1));
-          msg = party.get(whichPlayer).attack(enemies.get(whichOpponent));
-        }
-        else if(input.startsWith("special") || input.startsWith("sp")){
-          whichOpponent = Integer.parseInt(input.substring(input.length()-1));
-          msg = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
-        }
-        else if(input.startsWith("su") || input.startsWith("support")){
-          //"support 0" or "su 0" or "su 2" etc.
-          //assume the value that follows su  is an integer.
-          int playerNumber = Integer.parseInt(input.substring(input.length()-1));
-          msg = party.get(whichPlayer).support(party.get(playerNumber));
-        }
-        //You should decide when you want to re-ask for user input
+          //Process user input for the last Adventurer:
+          if(input.startsWith("attack") || input.startsWith("a")){
+            whichOpponent = Integer.parseInt(input.substring(input.length()-1));
+            msg = party.get(whichPlayer).attack(enemies.get(whichOpponent));
+          }
+          else if(input.startsWith("special") || input.startsWith("sp")){
+            whichOpponent = Integer.parseInt(input.substring(input.length()-1));
+            msg = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
+          }
+          else if(input.startsWith("su") || input.startsWith("support")){
+            //"support 0" or "su 0" or "su 2" etc.
+            //assume the value that follows su  is an integer.
+            int playerNumber = Integer.parseInt(input.substring(input.length()-1));
+            msg = party.get(whichPlayer).support(party.get(playerNumber));
+          }
+          //You should decide when you want to re-ask for user input
 
-        //example debug statment
-        //TextBox(15,41,38,4,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+          //example debug statment
+          //TextBox(15,41,38,4,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
-        //If no errors:
-        //NOTE TO SELF: LATER FIND A WAY TO PRINT A MESSAGE THAT THEY DIED
-        checkIfDead(party);
-        checkIfDead(enemies);
+          //If no errors:
+          //NOTE TO SELF: LATER FIND A WAY TO PRINT A MESSAGE THAT THEY DIED
+          whichPlayer-=checkIfDead(party, messageQueueRight);
+          checkIfDead(enemies, messageQueueRight);
 
-        printMessage(msg, messageQueueParty, 2);
-        drawScreen(party, enemies);
-        whichPlayer++;
+          printMessage(msg, messageQueueLeft, 3, 2);
+          drawScreen(party, enemies);
+          whichPlayer++;
 
-
-        if(whichPlayer >= party.size()){
-          partyTurn = false;
-          whichPlayer = 0;
-          prompt = "press enter to see enemy's turn";
-          whichOpponent = 0;
-          drawText(prompt, 26, 3);
-          Text.go(27, 3);
-        }
+          if(whichPlayer >= party.size()){
+            partyTurn = false;
+            whichPlayer = 0;
+            prompt = "press enter to see enemy's turn";
+            whichOpponent = 0;
+            drawText(prompt, 26, 3);
+            Text.go(27, 3);
+          }
         } else {
           partyTurn=false;
         }
@@ -340,31 +338,13 @@ public class Game{
         drawText(" ", 26, i);
         drawText(" ", 27, i);
       }
-      while (!partyTurn && !(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+      while (!partyTurn && !(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && enemies.size()>0 && party.size()!=0){
         //not the party turn!
 
-        if ((enemies.size()!=0)&&(party.size()!=0)){
-          Adventurer enemy = enemies.get(whichOpponent);
-          Adventurer target = party.get((int)(Math.random()*party.size()));
+        Adventurer enemy = enemies.get(whichOpponent);
+        Adventurer target = party.get((int)(Math.random()*party.size()));
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
-          if(Math.random()<1.0/3){
-            msg=enemy.attack(target);
-          } else if(Math.random()<0.5){
-            msg=enemy.specialAttack(target);
-          } else {
-            int targetIndex =(int)(Math.random()*(enemies.size()-1));
-            if (targetIndex>=whichOpponent && enemies.size()>1) {
-              targetIndex++;
-            }
-            target = enemies.get(targetIndex);
-            msg=enemy.support(target);
-          }
-        }
-
-        printMessage(msg, messageQueueEnemies, 41);
-        drawScreen(party, enemies);
-
         //Decide where to draw the following prompt:
         String prompt = "press enter to see next turn";
         drawText(prompt, 26, 3);
@@ -373,6 +353,24 @@ public class Game{
         while (!input.equals("")) {
           input=userInput(in);
         }
+
+        if(Math.random()<1.0/3){
+          msg=enemy.attack(target);
+        } else if(Math.random()<0.5){
+          msg=enemy.specialAttack(target);
+        } else {
+          int targetIndex =(int)(Math.random()*(enemies.size()-1));
+          if (targetIndex>=whichOpponent && enemies.size()>1) {
+            targetIndex++;
+          }
+          target = enemies.get(targetIndex);
+          msg=enemy.support(target);
+        }
+        checkIfDead(party, messageQueueRight);
+        whichOpponent-=checkIfDead(enemies, messageQueueRight);
+
+        printMessage(msg, messageQueueLeft,3, 2);
+        drawScreen(party, enemies);
 
         whichOpponent++;
 
@@ -388,7 +386,12 @@ public class Game{
       drawScreen(party, enemies);
 
     }//end of main game loop
-
+    
+    if (party.size()==0) {
+      printMessage("All members of your party have forfeited. You have lost!", messageQueueRight, 42, 4);
+    } else if (enemies.size()==0) {
+      printMessage("All members of the enemy party have forfeited. You have won!", messageQueueRight, 42, 4);
+    }
 
     //After quit reset things:
     quit();
