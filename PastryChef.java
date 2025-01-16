@@ -24,7 +24,7 @@ public class PastryChef extends Adventurer{
   }
 
   public void setSpecial(int n){
-    sugar = n;
+    sugar = Math.max(0, n);
   }
 
   public int getSpecialMax(){

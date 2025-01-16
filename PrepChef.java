@@ -24,7 +24,7 @@ public class PrepChef extends Adventurer{
   }
 
   public void setSpecial(int n){
-    money = n;
+    money = Math.max(0, n);
   }
 
   public int getSpecialMax(){

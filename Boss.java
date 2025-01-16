@@ -24,7 +24,7 @@ public class Boss extends Adventurer{
   }
 
   public void setSpecial(int n){
-    rating = n;
+    rating = Math.max(0, n);
   }
 
   public int getSpecialMax(){

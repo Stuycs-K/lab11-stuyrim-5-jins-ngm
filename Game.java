@@ -206,7 +206,7 @@ public class Game{
         }
       }
       TextBox(12, col, 38, 6, messageQueue[0]);
-      TextBox(18, col, 38, 6, messageQueue[1]);
+      TextBox(18, col, 38, 7, messageQueue[1]);
     } else {
       for (int i=12; i<=24; i++) {
         for (int j=col; j<col+38; j++) {
@@ -215,8 +215,8 @@ public class Game{
       }
       messageQueue[0]=messageQueue[1];
       messageQueue[1]=msg;
-      TextBox(12, 2, 38, 6, messageQueue[0]);
-      TextBox(18, 2, 38, 6, messageQueue[1]);
+      TextBox(12, col, 38, 6, messageQueue[0]);
+      TextBox(18, col, 38, 7, messageQueue[1]);
     }
   }
 
@@ -286,7 +286,7 @@ public class Game{
           drawText(" ", 26, i);
           drawText(" ", 27, i);
         }
-        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/support/special/quit";
         drawText(prompt, 26, 3);
         Text.go(27, 3);
         input = userInput(in);
@@ -377,19 +377,12 @@ public class Game{
         whichOpponent++;
 
         if (whichOpponent>=enemies.size()) {
+          whichPlayer = 0;
+          whichOpponent = 0;
+          turn++;
           partyTurn=true;
         }
       }//end of one enemy.
-
-      //modify this if statement.
-      if(!partyTurn && whichOpponent >= enemies.size()){
-        //THIS BLOCK IS TO END THE ENEMY TURN
-        //It only triggers after the last enemy goes.
-        whichPlayer = 0;
-        whichOpponent = 0;
-        turn++;
-        partyTurn=true;
-      }
 
       //display the updated screen after input has been processed.
       drawScreen(party, enemies);
