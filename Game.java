@@ -129,7 +129,15 @@ public class Game{
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
       for (int i=0; i<party.size(); i++) {
         Adventurer member = party.get(i);
-        TextBox(startRow, 3+i*78/party.size(), 78/party.size(), 1, member.toString());
+        String type;
+        if (member.getSpecialName().equals("rating")) {
+          type = "Barista";
+        } else if (member.getSpecialName().equals("sugar")) {
+          type = "PastryChef";
+        } else {
+          type = "PrepChef";
+        }
+        TextBox(startRow, 3+i*78/party.size(), 78/party.size(), 1, member.toString()+" ("+type+")");
         TextBox(startRow+1, 3+i*78/party.size(), 78/party.size(), 1, "HP: "+member.getHP()+"/"+member.getmaxHP());
         TextBox(startRow+2, 3+i*78/party.size(), 78/party.size(), 1, member.getSpecialName()+": "+member.getSpecial()+"/"+member.getSpecialMax());
         TextBox(startRow+3, 3+i*78/party.size(), 78/party.size(), 1, "sick: "+member.hasSalmonella());
@@ -186,22 +194,22 @@ public class Game{
     Text.go(32,1);
   }
 
-  public static void printMessageLeft(String msg, String[] messageQueue) {
+  public static void printMessage(String msg, String[] messageQueue, int col) {
     if (messageQueue[0]==null) {
       messageQueue[0]=msg;
-      TextBox(12, 2, 38, 6, msg);
+      TextBox(12, col, 38, 6, msg);
     } else if (messageQueue[1]==null) {
       messageQueue[1]=msg;
       for (int i=12; i<=24; i++) {
-        for (int j=2; j<40; j++) {
+        for (int j=col; j<col+38; j++) {
           TextBox(i, j, 1, 1, " ");
         }
       }
-      TextBox(12, 2, 38, 6, messageQueue[0]);
-      TextBox(18, 2, 38, 6, messageQueue[1]);
+      TextBox(12, col, 38, 6, messageQueue[0]);
+      TextBox(18, col, 38, 6, messageQueue[1]);
     } else {
       for (int i=12; i<=24; i++) {
-        for (int j=2; j<40; j++) {
+        for (int j=col; j<col+38; j++) {
           TextBox(i, j, 1, 1, " ");
         }
       }
@@ -257,7 +265,8 @@ public class Game{
     int turn = 0;
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
-    String[] messageQueue = new String[2];
+    String[] messageQueueParty = new String[2];
+    String[] messageQueueEnemies = new String[2];
     String msg = "message!";
     //Draw the window border
 
@@ -269,7 +278,7 @@ public class Game{
     //display this prompt at the start of the game.
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
-      
+
       //display event based on last turn's input
       //NOTE TO SELF make conditional to only do stuff if hp>0
       while (partyTurn){
@@ -306,8 +315,8 @@ public class Game{
         //NOTE TO SELF: LATER FIND A WAY TO PRINT A MESSAGE THAT THEY DIED
         checkIfDead(party);
         checkIfDead(enemies);
-        
-        printMessageLeft(msg, messageQueue);
+
+        printMessage(msg, messageQueueParty, 2);
         drawScreen(party, enemies);
         whichPlayer++;
 
@@ -321,37 +330,41 @@ public class Game{
           Text.go(27, 3);
         }
         //done with one party member
-      } 
+      }
       for (int i=2; i<80; i++) {
         drawText(" ", 26, i);
         drawText(" ", 27, i);
       }
       while (!partyTurn){
         //not the party turn!
-        
+
         if ((enemies.size()!=0)&&(party.size()!=0)){
           Adventurer enemy = enemies.get(whichOpponent);
           Adventurer target = party.get((int)(Math.random()*party.size()));
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
           if(Math.random()<1.0/3){
-            enemy.attack(target);
+            msg=enemy.attack(target);
           } else if(Math.random()<0.5){
-            enemy.specialAttack(target);
+            msg=enemy.specialAttack(target);
           } else {
             int targetIndex =(int)(Math.random()*(enemies.size()-1));
             if (targetIndex>=whichOpponent) {
               targetIndex++;
             }
             target = enemies.get(targetIndex);
-            enemy.support(target);
+            msg=enemy.support(target);
           }
         }
+
+        printMessage(msg, messageQueueEnemies, 41);
+        drawScreen(party, enemies);
 
         //Decide where to draw the following prompt:
         String prompt = "press enter to see next turn";
         drawText(prompt, 26, 3);
         Text.go(27, 3);
+        input="some string";
         while (!input.equals("")) {
           input=userInput(in);
         }
