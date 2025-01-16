@@ -349,7 +349,7 @@ public class Game{
             msg=enemy.specialAttack(target);
           } else {
             int targetIndex =(int)(Math.random()*(enemies.size()-1));
-            if (targetIndex>=whichOpponent) {
+            if (targetIndex>=whichOpponent && enemies.size()>1) {
               targetIndex++;
             }
             target = enemies.get(targetIndex);
