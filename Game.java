@@ -127,6 +127,11 @@ public class Game{
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
+      for (int i=0; i<4; i++) {
+        for (int j=3; j<80; j++) {
+          TextBox(i, j, 1, 1, " ");
+        }
+      }
       for (int i=0; i<party.size(); i++) {
         Adventurer member = party.get(i);
         String type;
@@ -218,7 +223,7 @@ public class Game{
     for (int i=0; i<party.size(); i++) {
       Adventurer a = party.get(i);
       if (a.getHP()<=0) {
-        printMessage(a.toString()+" is out of HP and is no longer able to fight. They are forced to forfeit.", messageQueueRight, 42, 4);
+        printMessage(a.toString()+" is out of HP and is no longer able to fight.", messageQueueRight, 42, 4);
         party.remove(a);
         i--;
         ans++;
@@ -294,6 +299,16 @@ public class Game{
           }
           Text.go(27, 3);
           input = userInput(in);
+          try {
+            int which = Integer.parseInt(input.substring(input.length()-1));
+            if (input.startsWith("attack") || input.startsWith("a") || input.startsWith("special") || input.startsWith("sp")) {
+              enemies.get(which);
+            } else if (input.startsWith("su") || input.startsWith("support")) {
+              party.get(which);
+            }
+          } catch (Exception ex) {
+            input="some string";
+          }
         }
 
         drawScreen(party, enemies);
