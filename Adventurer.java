@@ -74,9 +74,9 @@ public abstract class Adventurer{
     this.name = name;
     this.HP = hp;
     this.maxHP = hp;
-    this.salmonella=false;
-    this.shield=null;
-    this.buffed=false;
+    salmonella=false;
+    shield=null;
+    buffed=false;
     this.party=party;
   }
 
