@@ -192,9 +192,19 @@ public class Game{
       TextBox(12, 2, 38, 6, msg);
     } else if (messageQueue[1]==null) {
       messageQueue[1]=msg;
+      for (int i=12; i<=24; i++) {
+        for (int j=2; j<40; j++) {
+          TextBox(i, j, 1, 1, " ");
+        }
+      }
       TextBox(12, 2, 38, 6, messageQueue[0]);
       TextBox(18, 2, 38, 6, messageQueue[1]);
     } else {
+      for (int i=12; i<=24; i++) {
+        for (int j=2; j<40; j++) {
+          TextBox(i, j, 1, 1, " ");
+        }
+      }
       messageQueue[0]=messageQueue[1];
       messageQueue[1]=msg;
       TextBox(12, 2, 38, 6, messageQueue[0]);
@@ -285,6 +295,7 @@ public class Game{
 
         //If no errors:
         printMessageLeft(msg, messageQueue);
+        drawScreen(party, enemies);
         whichPlayer++;
 
 
