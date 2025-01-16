@@ -212,7 +212,7 @@ public class Game{
     }
   }
 
-  public static void checkIfDead(ArrayLIst<Adventurer> party) {
+  public static void checkIfDead(ArrayList<Adventurer> party) {
     for (Adventurer a: party) {
       if (a.getHP()<=0) {
         party.remove(a);
@@ -350,8 +350,12 @@ public class Game{
 
         //Decide where to draw the following prompt:
         String prompt = "press enter to see next turn";
+        drawText(prompt, 26, 3);
         Text.go(27, 3);
-        
+        while (!input.equals("")) {
+          input=userInput(in);
+        }
+
         whichOpponent++;
 
         if (whichOpponent>=enemies.size()) {
