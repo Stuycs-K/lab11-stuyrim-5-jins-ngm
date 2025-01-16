@@ -283,13 +283,20 @@ public class Game{
       while (partyTurn && party.size()>0 && enemies.size()>0){
         for (int i=2; i<80; i++) {
           drawText(" ", 26, i);
-          drawText(" ", 27, i);
         }
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack/support/special/quit";
         drawText(prompt, 26, 3);
-        Text.go(27, 3);
-        input = userInput(in);
+        input="some string";
+        while (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit") || input.startsWith("attack") || input.startsWith("a")
+        || input.startsWith("special") || input.startsWith("sp") || input.startsWith("su") || input.startsWith("support"))) {
+          for (int i=2; i<80; i++) {
+            drawText(" ", 27, i);
+          }
+          Text.go(27, 3);
+          input = userInput(in);
+        }
 
+        drawScreen(party, enemies);
         if (! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))) {
           //Process user input for the last Adventurer:
           if(input.startsWith("attack") || input.startsWith("a")){
@@ -312,12 +319,11 @@ public class Game{
           //TextBox(15,41,38,4,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
           //If no errors:
-          //NOTE TO SELF: LATER FIND A WAY TO PRINT A MESSAGE THAT THEY DIED
+          drawScreen(party, enemies);
           whichPlayer-=checkIfDead(party, messageQueueRight);
           checkIfDead(enemies, messageQueueRight);
 
           printMessage(msg, messageQueueLeft, 3, 2);
-          drawScreen(party, enemies);
           whichPlayer++;
 
           if(whichPlayer >= party.size()){
@@ -334,10 +340,12 @@ public class Game{
         
         //done with one party member
       }
+
       for (int i=2; i<80; i++) {
         drawText(" ", 26, i);
         drawText(" ", 27, i);
       }
+
       while (!partyTurn && !(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) && enemies.size()>0 && party.size()!=0){
         //not the party turn!
 
@@ -348,12 +356,16 @@ public class Game{
         //Decide where to draw the following prompt:
         String prompt = "press enter to see next turn";
         drawText(prompt, 26, 3);
-        Text.go(27, 3);
         input="some string";
         while (!input.equals("")) {
+          for (int i=2; i<80; i++) {
+            drawText(" ", 27, i);
+          }
+          Text.go(27, 3);
           input=userInput(in);
         }
 
+        drawScreen(party, enemies);
         if(Math.random()<1.0/3){
           msg=enemy.attack(target);
         } else if(Math.random()<0.5){
@@ -366,11 +378,12 @@ public class Game{
           target = enemies.get(targetIndex);
           msg=enemy.support(target);
         }
+
+        drawScreen(party, enemies);
         checkIfDead(party, messageQueueRight);
         whichOpponent-=checkIfDead(enemies, messageQueueRight);
 
         printMessage(msg, messageQueueLeft,3, 2);
-        drawScreen(party, enemies);
 
         whichOpponent++;
 
@@ -381,6 +394,10 @@ public class Game{
           partyTurn=true;
         }
       }//end of one enemy.
+
+      if (party.size()==0 || enemies.size()==0) {
+        input="q";
+      }
 
       //display the updated screen after input has been processed.
       drawScreen(party, enemies);
