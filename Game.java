@@ -212,6 +212,14 @@ public class Game{
     }
   }
 
+  public static void checkIfDead(ArrayLIst<Adventurer> party) {
+    for (Adventurer a: party) {
+      if (a.getHP()<=0) {
+        party.remove(a);
+      }
+    }
+  }
+
   public static void run(){
     //Clear and initialize
     Text.hideCursor();
@@ -263,6 +271,7 @@ public class Game{
       //Read user input
       
       //display event based on last turn's input
+      //NOTE TO SELF make conditional to only do stuff if hp>0
       while (partyTurn){
         for (int i=2; i<80; i++) {
           drawText(" ", 26, i);
@@ -294,6 +303,10 @@ public class Game{
         TextBox(15,41,38,4,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
         //If no errors:
+        //NOTE TO SELF: LATER FIND A WAY TO PRINT A MESSAGE THAT THEY DIED
+        checkIfDead(party);
+        checkIfDead(enemies);
+        
         printMessageLeft(msg, messageQueue);
         drawScreen(party, enemies);
         whichPlayer++;
@@ -308,26 +321,42 @@ public class Game{
           Text.go(27, 3);
         }
         //done with one party member
-      } while (!partyTurn){
+      } 
+      for (int i=2; i<80; i++) {
+        drawText(" ", 26, i);
+        drawText(" ", 27, i);
+      }
+      while (!partyTurn){
         //not the party turn!
+        
         if ((enemies.size()!=0)&&(party.size()!=0)){
           Adventurer enemy = enemies.get(whichOpponent);
           Adventurer target = party.get((int)(Math.random()*party.size()));
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
-          if(Math.random()<0.5){
+          if(Math.random()<1.0/3){
             enemy.attack(target);
-          }
-          else if(input.equals("special") || input.equals("sp")){
+          } else if(Math.random()<0.5){
             enemy.specialAttack(target);
+          } else {
+            int targetIndex =(int)(Math.random()*(enemies.size()-1));
+            if (targetIndex>=whichOpponent) {
+              targetIndex++;
+            }
+            target = enemies.get(targetIndex);
+            enemy.support(target);
           }
         }
 
         //Decide where to draw the following prompt:
-        Text.go(26, 3);
         String prompt = "press enter to see next turn";
-
+        Text.go(27, 3);
+        
         whichOpponent++;
+
+        if (whichOpponent>=enemies.size()) {
+          partyTurn=true;
+        }
 
       }//end of one enemy.
 
