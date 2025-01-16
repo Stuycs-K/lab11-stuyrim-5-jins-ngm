@@ -297,11 +297,11 @@ public class Game{
           whichOpponent = Integer.parseInt(input.substring(input.length()-1));
           msg = party.get(whichPlayer).attack(enemies.get(whichOpponent));
         }
-        else if(input.startsWith("special ") || input.startsWith("sp ")){
+        else if(input.startsWith("special") || input.startsWith("sp")){
           whichOpponent = Integer.parseInt(input.substring(input.length()-1));
           msg = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
         }
-        else if(input.startsWith("su ") || input.startsWith("support ")){
+        else if(input.startsWith("su") || input.startsWith("support")){
           //"support 0" or "su 0" or "su 2" etc.
           //assume the value that follows su  is an integer.
           int playerNumber = Integer.parseInt(input.substring(input.length()-1));

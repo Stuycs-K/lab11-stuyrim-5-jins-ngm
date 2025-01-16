@@ -58,7 +58,7 @@ public abstract class Adventurer{
   */
 
   public void applyDamage(int amount){
-    this.HP -= amount;
+    this.HP = max(this.HP-amount, 0);
   }
 
   //You did it wrong if this happens.

@@ -85,7 +85,7 @@ public class Boss extends Adventurer{
   }
 
   public String support(Adventurer other){
-    return "nothing to see here";
+    return support();
   }
 
   /*Increases rating by 3 (restores special) and 10 hp to self.*/
