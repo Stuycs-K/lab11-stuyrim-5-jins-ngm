@@ -225,7 +225,7 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
-    Text.go(27, 4);
+    Text.go(26, 3);
     String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
@@ -259,14 +259,14 @@ public class Game{
         if(whichPlayer < party.size()){
           //This is a player turn.
           //Decide where to draw the following prompt:
-          Text.go(25, 4);
+          Text.go(26, 3);
           String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
 
 
         }else{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
-          Text.go(27, 4);
+          Text.go(26, 3);
           String prompt = "press enter to see enemy's turn";
 
           partyTurn = false;
@@ -275,24 +275,21 @@ public class Game{
         //done with one party member
       }else{
         //not the party turn!
-
-
+        if ((enemies.size()!=0)&&(party.size()!=0)){
+          Adventurer enemy = enemies.get(whichOpponent);
+          Adventurer target = party.get((int)(Math.random()*party.size()));
         //enemy attacks a randomly chosen person with a randomly chosen attack.z`
         //Enemy action choices go here!
-        if(input.equals("attack") || input.equals("a")){
-          enemies.get(whichOpponent).attack(party.get(whichPlayer));
+          if(Math.random()<0.5){
+            enemy.attack(target);
+          }
+          else if(input.equals("special") || input.equals("sp")){
+            enemy.specialAttack(target);
+          }
         }
-        else if(input.equals("special") || input.equals("sp")){
-          enemies.get(whichOpponent).specialAttack(party.get(whichPlayer));
-        }
-        else if(input.startsWith("su ") || input.startsWith("support ")){
-          //"support 0" or "su 0" or "su 2" etc.
-          //assume the value that follows su  is an integer.
-          int playerNumber = Integer.parseInt(input.substring(input.length()-1));
-          enemies.get(whichOpponent).support(enemies.get(playerNumber));
 
         //Decide where to draw the following prompt:
-        Text.go(27, 4);
+        Text.go(26, 3);
         String prompt = "press enter to see next turn";
 
         whichOpponent++;
