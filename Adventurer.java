@@ -91,7 +91,12 @@ public abstract class Adventurer{
   }
 
   public int getHP(){
-    return HP;
+    if (HP > maxHP){
+      return maxHP;
+    }
+    else{
+      return HP;
+    }
   }
 
   public int getmaxHP(){
