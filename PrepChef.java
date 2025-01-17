@@ -11,7 +11,7 @@ public class PrepChef extends Adventurer{
   }
 
   public PrepChef(String name, ArrayList<Adventurer> party){
-    this(name,75,party);
+    this(name,25,party);
   }
 
   /*The next 8 methods are all required because they are abstract:*/

@@ -11,7 +11,7 @@ public class Boss extends Adventurer{
   }
 
   public Boss(String name, ArrayList<Adventurer> party){
-    this(name,75, party);
+    this(name,50, party);
   }
 
   /*The next 8 methods are all required because they are abstract:*/
