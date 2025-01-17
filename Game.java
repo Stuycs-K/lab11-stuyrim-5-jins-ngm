@@ -144,8 +144,9 @@ public class Game{
         } else {
           type = "PrepChef";
         }
+        String coloredHP = colorByPercent(member.getHP(),member.getmaxHP());
         TextBox(startRow, 3+i*78/party.size(), 78/party.size(), 1, member.toString()+" ("+type+")");
-        TextBox(startRow+1, 3+i*78/party.size(), 78/party.size(), 1, "HP: "+member.getHP()+"/"+member.getmaxHP());
+        TextBox(startRow+1, 3+i*78/party.size(), 78/party.size(), 1, "HP: "+coloredHP);
         TextBox(startRow+2, 3+i*78/party.size(), 78/party.size(), 1, member.getSpecialName()+": "+member.getSpecial()+"/"+member.getSpecialMax());
         TextBox(startRow+3, 3+i*78/party.size(), 78/party.size(), 1, "sick: "+member.hasSalmonella());
       }
@@ -155,10 +156,10 @@ public class Game{
   //Use this to create a colorized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
     String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
-    if (maxHP/2 > hp){
+    if (maxHP*(0.5) > hp){
       return Text.colorize(output, Text.BOLD, Text.RED);
     }
-    if (maxHP*(3/4)>hp){
+    if (maxHP*(0.75)>hp){
       return Text.colorize(output, Text.BOLD, Text.YELLOW);
     }
     else{
@@ -252,6 +253,7 @@ public class Game{
       enemies.add(new Boss("Maple", enemies));
     }
     else{
+      boolean bossAdded = false;
       for (int i = 0; i < enemyCount; i++){
         enemies.add(createRandomAdventurer(enemies));
       }
