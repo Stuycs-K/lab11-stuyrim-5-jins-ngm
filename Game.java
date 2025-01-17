@@ -126,10 +126,12 @@ public class Game{
     *Caffeine: 20 Mana: 10   Snark: 1
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
-    public static void drawParty(ArrayList<Adventurer> party,int startRow){
-      for (int i=0; i<4; i++) {
-        for (int j=3; j<80; j++) {
-          TextBox(i, j, 1, 1, " ");
+    public static void drawParty(ArrayList<Adventurer> party,int startRow, boolean change){
+      if (change) {
+        for (int i=0; i<4; i++) {
+          for (int j=3; j<80; j++) {
+            TextBox(startRow+i, j, 1, 1, " ");
+          }
         }
       }
       for (int i=0; i<party.size(); i++) {
@@ -171,12 +173,12 @@ public class Game{
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
-  public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer> enemies){
+  public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer> enemies, boolean change){
 
     drawBackground();
 
-    drawParty(party, 2);
-    drawParty(enemies, 7);
+    drawParty(party, 2, change);
+    drawParty(enemies, 7, change);
     Text.go(29, 2);
 
   }
@@ -268,6 +270,7 @@ public class Game{
     int whichOpponent = 0;
     int turn = 0;
     String input = "";//blank to get into the main loop.
+    int died=0;
     Scanner in = new Scanner(System.in);
     ArrayList<String> messageQueueLeft = new ArrayList<String>(2);
     ArrayList<String> messageQueueRight = new ArrayList<String>(4);
@@ -275,7 +278,7 @@ public class Game{
     //Draw the window border
 
     //You can add parameters to draw screen!
-    drawScreen(party, enemies);//initial state.
+    drawScreen(party, enemies, false);//initial state.
 
     //Main loop
 
@@ -292,6 +295,8 @@ public class Game{
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack/support/special/quit";
         drawText(prompt, 26, 3);
         input="some string";
+
+        //input loop
         while (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit") || input.startsWith("attack") || input.startsWith("a")
         || input.startsWith("special") || input.startsWith("sp") || input.startsWith("su") || input.startsWith("support"))) {
           for (int i=2; i<80; i++) {
@@ -300,18 +305,20 @@ public class Game{
           Text.go(27, 3);
           input = userInput(in);
           try {
-            int which = Integer.parseInt(input.substring(input.length()-1));
-            if (input.startsWith("attack") || input.startsWith("a") || input.startsWith("special") || input.startsWith("sp")) {
-              enemies.get(which);
-            } else if (input.startsWith("su") || input.startsWith("support")) {
-              party.get(which);
+            if (!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))) {
+              int which = Integer.parseInt(input.substring(input.length()-1));
+              if (input.startsWith("attack") || input.startsWith("a") || input.startsWith("special") || input.startsWith("sp")) {
+                enemies.get(which);
+              } else if (input.startsWith("su") || input.startsWith("support")) {
+                party.get(which);
+              }
             }
           } catch (Exception ex) {
             input="some string";
           }
         }
 
-        drawScreen(party, enemies);
+        drawScreen(party, enemies, (died>0));
         if (! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))) {
           //Process user input for the last Adventurer:
           if(input.startsWith("attack") || input.startsWith("a")){
@@ -334,9 +341,10 @@ public class Game{
           //TextBox(15,41,38,4,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
           //If no errors:
-          drawScreen(party, enemies);
-          whichPlayer-=checkIfDead(party, messageQueueRight);
-          checkIfDead(enemies, messageQueueRight);
+          drawScreen(party, enemies, false);
+          died=checkIfDead(party, messageQueueRight);
+          whichPlayer-=died;
+          died=Math.max(died, checkIfDead(enemies, messageQueueRight));
 
           printMessage(msg, messageQueueLeft, 3, 2);
           whichPlayer++;
@@ -380,7 +388,7 @@ public class Game{
           input=userInput(in);
         }
 
-        drawScreen(party, enemies);
+        drawScreen(party, enemies, (died>0));
         if(Math.random()<1.0/3){
           msg=enemy.attack(target);
         } else if(Math.random()<0.5){
@@ -394,9 +402,10 @@ public class Game{
           msg=enemy.support(target);
         }
 
-        drawScreen(party, enemies);
-        checkIfDead(party, messageQueueRight);
-        whichOpponent-=checkIfDead(enemies, messageQueueRight);
+        drawScreen(party, enemies, false);
+        died = checkIfDead(enemies, messageQueueRight);
+        whichOpponent-=died;
+        died=Math.max(died, checkIfDead(party, messageQueueRight));
 
         printMessage(msg, messageQueueLeft,3, 2);
 
@@ -413,9 +422,6 @@ public class Game{
       if (party.size()==0 || enemies.size()==0) {
         input="q";
       }
-
-      //display the updated screen after input has been processed.
-      drawScreen(party, enemies);
 
     }//end of main game loop
     
