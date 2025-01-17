@@ -203,6 +203,12 @@ public class Game{
   }
 
   public static void printMessage(String msg, ArrayList<String> messageQueue, int col, int length) {
+    if (msg.contains("is out of HP and is no longer able to fight.") || msg.contains("All members of the your party have forfeited. You have lost!")){
+      msg = Text.colorize(msg, Text.BOLD, Text.RED);
+    }
+    if (msg.contains("All members of the enemy party have forfeited. You have won!")){
+      msg = Text.colorize(msg, Text.BOLD, Text.GREEN);
+    }
     messageQueue.add(msg);
     if (messageQueue.size()>length) {
       messageQueue.remove(0);
