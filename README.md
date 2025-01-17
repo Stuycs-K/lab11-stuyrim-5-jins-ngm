@@ -3,18 +3,12 @@
 
 ## Features
 
-Make a clear list of features that work/dont work
-
-:white_check_mark: This feature works.
-
-:question: This feature works partially.
-
-:ballot_box_with_check: This extra (beyond the things that the lab was supposed to do) feature works.
-
-:x: This required feature does not work.
-
-:beetle: This is a bug that affects the game.
-
+:white_check_mark: play with a group of 3 different types adventurers
+:white_check_mark: play against 1-3 randomly chosen adventurer opponents
+:question: use attack/special operations on your opponents
+:question: use support operations on your team
+:question: program ends when the user choosed to quit, or all enemies is defeated, or the entire party is defeated. A win/lose screen is useful here.
+:white_check_mark: display the results of the attack/special/support inside your border. Do not print things at the bottom of the screen or it will scroll.
 
 ## Adventurer Subclasses
 
