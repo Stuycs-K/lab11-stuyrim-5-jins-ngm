@@ -434,10 +434,10 @@ public class Game{
     
     if (party.size()==0) {
       // printMessage("All members of your party have forfeited. You have lost!", messageQueueRight, 42, 4);
-      Screen.drawWinScreen();
+      Screen.drawLoseScreen();
     } else if (enemies.size()==0) {
       // printMessage("All members of the enemy party have forfeited. You have won!", messageQueueRight, 42, 4);
-      Screen.drawLoseScreen();
+      Screen.drawWinScreen();
     }
 
     //After quit reset things:
