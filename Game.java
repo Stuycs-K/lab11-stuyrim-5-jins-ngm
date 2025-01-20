@@ -152,7 +152,6 @@ public class Game{
       }
     }
 
-
   //Use this to create a colorized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
     //String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
@@ -203,12 +202,12 @@ public class Game{
   }
 
   public static void printMessage(String msg, ArrayList<String> messageQueue, int col, int length) {
-    if (msg.contains("is out of HP and is no longer able to fight.") || msg.contains("is out of HP and is no longer able to fight.")){
-      msg = Text.colorize(msg, Text.BOLD, Text.RED);
-    }
-    if (msg.contains("All members of the enemy party have forfeited. You have won!")){
-      msg = Text.colorize(msg, Text.BOLD, Text.GREEN);
-    }
+    // if (msg.contains("is out of HP and is no longer able to fight.") || msg.contains("is out of HP and is no longer able to fight.")){
+    //   msg = Text.colorize(msg, Text.BOLD, Text.RED);
+    // }
+    // if (msg.contains("All members of the enemy party have forfeited. You have won!")){
+    //   msg = Text.colorize(msg, Text.BOLD, Text.GREEN);
+    // }
     messageQueue.add(msg);
     if (messageQueue.size()>length) {
       messageQueue.remove(0);
@@ -434,9 +433,11 @@ public class Game{
     }//end of main game loop
     
     if (party.size()==0) {
-      printMessage("All members of your party have forfeited. You have lost!", messageQueueRight, 42, 4);
+      // printMessage("All members of your party have forfeited. You have lost!", messageQueueRight, 42, 4);
+      Screen.drawLoseScreen();
     } else if (enemies.size()==0) {
-      printMessage("All members of the enemy party have forfeited. You have won!", messageQueueRight, 42, 4);
+      // printMessage("All members of the enemy party have forfeited. You have won!", messageQueueRight, 42, 4);
+      Screen.drawWinScreen();
     }
 
     //After quit reset things:
