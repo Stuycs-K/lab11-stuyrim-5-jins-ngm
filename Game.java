@@ -152,6 +152,44 @@ public class Game{
       }
     }
 
+    public static void drawWinScreen(){
+      for (int i = 1; i < 81; i++){
+        Text.go(1,i);
+        System.out.print(Text.colorize(" ",Text.GREEN+Text.BACKGROUND));
+      }
+      for (int i = 1; i < 81; i++){
+        Text.go(30,i);
+        System.out.print(Text.colorize(" ",Text.GREEN+Text.BACKGROUND));
+      }
+      for (int i = 1; i < 31; i++){
+        Text.go(i,1);
+        System.out.print(Text.colorize(" ",Text.GREEN+Text.BACKGROUND));
+      }
+      for (int i = 1; i < 31; i++){
+        Text.go(i,80);
+        System.out.print(Text.colorize(" ",Text.GREEN+Text.BACKGROUND));
+      }
+    }
+
+    public static void drawLoseScreen(){
+      for (int i = 1; i < 81; i++){
+        Text.go(1,i);
+        System.out.print(Text.colorize(" ",Text.RED+Text.BACKGROUND));
+      }
+      for (int i = 1; i < 81; i++){
+        Text.go(30,i);
+        System.out.print(Text.colorize(" ",Text.RED+Text.BACKGROUND));
+      }
+      for (int i = 1; i < 31; i++){
+        Text.go(i,1);
+        System.out.print(Text.colorize(" ",Text.RED+Text.BACKGROUND));
+      }
+      for (int i = 1; i < 31; i++){
+        Text.go(i,80);
+        System.out.print(Text.colorize(" ",Text.RED+Text.BACKGROUND));
+      }
+    }
+
 
   //Use this to create a colorized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
@@ -203,12 +241,12 @@ public class Game{
   }
 
   public static void printMessage(String msg, ArrayList<String> messageQueue, int col, int length) {
-    if (msg.contains("is out of HP and is no longer able to fight.") || msg.contains("is out of HP and is no longer able to fight.")){
-      msg = Text.colorize(msg, Text.BOLD, Text.RED);
-    }
-    if (msg.contains("All members of the enemy party have forfeited. You have won!")){
-      msg = Text.colorize(msg, Text.BOLD, Text.GREEN);
-    }
+    // if (msg.contains("is out of HP and is no longer able to fight.") || msg.contains("is out of HP and is no longer able to fight.")){
+    //   msg = Text.colorize(msg, Text.BOLD, Text.RED);
+    // }
+    // if (msg.contains("All members of the enemy party have forfeited. You have won!")){
+    //   msg = Text.colorize(msg, Text.BOLD, Text.GREEN);
+    // }
     messageQueue.add(msg);
     if (messageQueue.size()>length) {
       messageQueue.remove(0);
@@ -434,9 +472,11 @@ public class Game{
     }//end of main game loop
     
     if (party.size()==0) {
-      printMessage("All members of your party have forfeited. You have lost!", messageQueueRight, 42, 4);
+      // printMessage("All members of your party have forfeited. You have lost!", messageQueueRight, 42, 4);
+      drawWinScreen();
     } else if (enemies.size()==0) {
-      printMessage("All members of the enemy party have forfeited. You have won!", messageQueueRight, 42, 4);
+      // printMessage("All members of the enemy party have forfeited. You have won!", messageQueueRight, 42, 4);
+      drawLoseScreen();
     }
 
     //After quit reset things:
