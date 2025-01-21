@@ -11,9 +11,15 @@
 
 :white_check_mark: use support operations on your team
 
-:white_check_mark: program ends when the user choosed to quit, or all enemies is defeated, or the entire party is defeated. A win/lose screen is useful here.
+:white_check_mark: program ends when the user choosed to quit, or all enemies is defeated, or the entire party is defeated
 
-:white_check_mark: display the results of the attack/special/support inside your border. Do not print things at the bottom of the screen or it will scroll.
+:white_check_mark: display win/lose screen when a party is defeated
+
+:white_check_mark: display the results of the attack/special/support inside the border
+
+:ballot_box_with_check: have a "passive ability" for each adventurer subclass
+
+:ballot_box_with_check: give (distinct) names to each of the adventurers
 
 ## Adventurer Subclasses
 
@@ -34,4 +40,4 @@
 - attack: steals ingredients from their opponent, decreasing their special attribute
 - support: they went outside, bought ingredients and prepped them, increasing HP and special of everyone in their party and increasing their damage for the next move. (This buff does not affect shield rebound damage.)
 - special: they buy everyone on their team aprons, casting a shared shield over the entire team (which has shieldHP based on money consumed). If a shield is cast while an existing shield is still up, it will replace the existing shield. This shield will protect against the PrepChef's "stealing" attack regardless of the amount of shieldHP, but it will not protect against the salmonella status effect (it can't prevent taking up that status effect or damage caused by it) or the self-HP loss from the Barista special attack.
-- passive ability: when casting the shield, there is a 50% chance the aprons are extra fancy and deal rebound damage when hit by the target opponent. (PrepChef's "stealing" attack will not trigger rebound damage.)
+- passive ability: when casting the shield, there is a 50% chance the aprons are extra fancy and deal rebound damage when hit by the target opponent. (PrepChef's "stealing" attack will not trigger rebound damage, neither will salmonella.)
