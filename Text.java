@@ -1,4 +1,12 @@
 public class Text{
+  public static void wait(int millis){
+    try {
+      Thread.sleep(millis);
+    }
+      catch (InterruptedException e) {
+    }
+  }
+  
   /*Base colors*/
   public static final int BLACK = 30;
   public static final int RED = 31;

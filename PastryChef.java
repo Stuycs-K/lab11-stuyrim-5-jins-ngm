@@ -40,11 +40,11 @@ public class PastryChef extends Adventurer{
       }
       int dmgMessage = other.applyDamage(damage);
       if (dmgMessage==-2){
-        additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+" thus sustains "+damage+" points of damage.";
+        additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+" thus loses "+damage+" HP.";
       } else if (dmgMessage==-1) {
         additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+"'s shield thus sustains "+damage+" points of damage.";
       } else {
-        additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+"'s shield breaks and "+other+" sustains "+damage+" points of damage.";
+        additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+"'s shield breaks and "+other+" loses "+damage+" HP.";
       }
     }
     setBuffed(false);
@@ -56,7 +56,7 @@ public class PastryChef extends Adventurer{
     setBuffed(false);
     if(getSpecial() >= 8){
       setSpecial(getSpecial()-8);
-      return attack(other)+" "+this+" uses their extra sugar to whip up another poisonous pastry!";
+      return "entire enemy party";
     }else{
       return "Unfortunately, "+this+" is a bit short on sugar, so they can only make one pastry. "+attack(other);
     }

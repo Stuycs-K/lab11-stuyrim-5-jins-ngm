@@ -19,10 +19,11 @@ public class Shield{
     return target;
   }
 
-  public void reboundDamage(Adventurer other) {
+  public int reboundDamage(Adventurer other) {
     if (rebound && other==target) {
-      other.applyDamage(2);
+      return other.applyDamage(2);
     }
+    else return -3;
   }
 
   public void applyDamage(int n) {

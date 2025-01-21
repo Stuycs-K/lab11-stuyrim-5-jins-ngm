@@ -98,6 +98,10 @@ public class Game{
         ans++;
       }
     }
+    while (s.contains("\u001b")) {
+      ans-=2;
+      s=s.substring(0, s.indexOf("\u001b"))+s.substring(s.indexOf("\u001b")+1);
+    }
     return ans;
   }
 
@@ -203,13 +207,13 @@ public class Game{
   public static String colorByPercent(int hp, int maxHP){
     //String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
     if (maxHP*(0.5) > hp){
-      return Text.colorize(hp+"", Text.BOLD, Text.RED)+"/"+maxHP;
+      return Text.colorize(hp+"", Text.BOLD, Text.RED)+Text.colorize("/"+maxHP, Text.BOLD);
     }
     if (maxHP*(0.75)>hp){
-      return Text.colorize(hp+"", Text.BOLD, Text.YELLOW)+"/"+maxHP;
+      return Text.colorize(hp+"", Text.BOLD, Text.YELLOW)+Text.colorize("/"+maxHP, Text.BOLD);
     }
     else{
-      return Text.colorize(hp+"", Text.BOLD, Text.WHITE)+"/"+maxHP;
+      return Text.colorize(hp+"", Text.BOLD, Text.WHITE)+Text.colorize("/"+maxHP, Text.BOLD);
     }
   }
 
@@ -285,6 +289,20 @@ public class Game{
       }
     }
     return ans;
+  }
+
+  public static void reboundDamage(Adventurer attacker, Adventurer enemy, ArrayList<String> messageQueueRight) {
+    //shield rebound damage
+    if (!attacker.getSpecialName().equals("money") && enemy.isShielded()) {
+      int dmgMessage = enemy.getShield().reboundDamage(attacker);
+      if (dmgMessage==-2){
+        printMessage(""+attacker+" lost 2 HP due to rebound damage from "+enemy+"'s shield.", messageQueueRight, 42, 4);
+      } else if (dmgMessage==-1) {
+        printMessage(attacker + "'s shield lost 2 HP due to rebound damage from "+enemy+"'s shield.", messageQueueRight, 42, 4);
+      } else if (dmgMessage>=0) {
+        printMessage("Because "+enemy+"'s shield dealt rebound damage, "+attacker+"'s shield broke and they lost "+dmgMessage+" HP.", messageQueueRight, 42, 4);
+      }
+    }
   }
 
   public static void run(){
@@ -378,10 +396,27 @@ public class Game{
           if(input.startsWith("attack") || input.startsWith("a")){
             whichOpponent = Integer.parseInt(input.substring(input.length()-1));
             msg = party.get(whichPlayer).attack(enemies.get(whichOpponent));
+            //shield rebound damage
+            reboundDamage(party.get(whichPlayer), enemies.get(whichOpponent), messageQueueRight);
           }
           else if(input.startsWith("special") || input.startsWith("sp")){
             whichOpponent = Integer.parseInt(input.substring(input.length()-1));
             msg = party.get(whichPlayer).specialAttack(enemies.get(whichOpponent));
+            
+            //if PastryChef attacks the entire enemy party 
+            if (party.get(whichPlayer).getSpecialName().equals("sugar") && msg.equals("entire enemy party")) {
+              printMessage(party.get(whichPlayer)+" uses their extra sugar to attack the entire enemy party!", messageQueueLeft, 3, 2);
+              Text.wait(1500);
+              for (int i=0; i<enemies.size()-1; i++) {
+                printMessage(party.get(whichPlayer).attack(enemies.get(i)), messageQueueLeft, 3, 2);
+                reboundDamage(party.get(whichPlayer), enemies.get(i), messageQueueRight);
+                Text.wait(1500);
+              }
+              msg = party.get(whichPlayer).attack(enemies.get(enemies.size()-1));
+            } else {
+              //shield rebound damage
+              reboundDamage(party.get(whichPlayer), enemies.get(whichOpponent), messageQueueRight);
+            }
           }
           else if(input.startsWith("su") || input.startsWith("support")){
             //"support 0" or "su 0" or "su 2" etc.
@@ -396,7 +431,7 @@ public class Game{
           if (party.get(whichPlayer).hasSalmonella()) {
             int salmonellaDamage = (int)(Math.random()*3)+2;
             party.get(whichPlayer).setHP(party.get(whichPlayer).getHP()-salmonellaDamage);
-            printMessage(""+party.get(whichPlayer)+" is suffering from salmonella and lost "+salmonellaDamage+" points of HP.", messageQueueRight, 42, 4);
+            printMessage(""+party.get(whichPlayer)+" is suffering from salmonella and lost "+salmonellaDamage+" HP.", messageQueueRight, 42, 4);
           }
           //You should decide when you want to re-ask for user input
 
@@ -454,8 +489,25 @@ public class Game{
         drawScreen(party, enemies, (died>0));
         if(Math.random()<1.0/3){
           msg=enemy.attack(target);
+          //rebound damage
+          reboundDamage(enemy, target, messageQueueRight);
         } else if(Math.random()<0.5){
           msg=enemy.specialAttack(target);
+          //rebound damage
+          
+          //if enemy is PastryChef and attacks the entire party
+          if (enemy.getSpecialName().equals("sugar") && msg.equals("entire enemy party")) {
+            printMessage(enemy+" uses their extra sugar to attack the entire party!", messageQueueLeft, 3, 2);
+            Text.wait(1500);
+            for (int i=0; i<party.size()-1; i++) {
+              printMessage(enemy.attack(party.get(i)), messageQueueLeft, 3, 2);
+              reboundDamage(enemy, party.get(i), messageQueueRight);
+              Text.wait(1500);
+            }
+            msg = enemy.attack(party.get(party.size()-1));
+          } else {
+            reboundDamage(enemy, target, messageQueueRight);
+          }
         } else {
           int targetIndex =(int)(Math.random()*enemies.size());
           target = enemies.get(targetIndex);
