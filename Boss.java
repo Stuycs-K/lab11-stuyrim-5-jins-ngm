@@ -31,18 +31,25 @@ public class Boss extends Adventurer{
     return ratingMax;
   }
 
-  /*Deal 4-8 damage to opponent, restores 1 rating*/
+  /*Deal 4-8 damage to opponent*/
   public String attack(Adventurer other){
-    int damage = (int)(Math.random()*5)+4;
-    other.applyDamage(damage);
-    restoreSpecial(1);
+    int damage;
     if (this.getmaxHP()/2 > this.getHP()){
-      return this + " made a rotten drink for "+ other + " and dealt "+ (damage * 1.2) +
-      " points of damage. "+other+" threw up and "+this+" laughed.";
+      damage = (int)(1.2*((int)(Math.random()*5)+4));
     }
     else{
-      return this + " made a rotten drink for "+ other + " and dealt "+ damage +
+      damage = (int)(Math.random()*5)+4;
+    }
+    int dmgMessage = other.applyDamage(damage);
+    if (dmgMessage==-2){
+      return this + " made a disgusting drink for "+ other + " and dealt "+ damage +
       " points of damage. "+other+" threw up and "+this+" laughed.";
+    } else if (dmgMessage==-1) {
+      return this + " made a disgusting drink for "+ other + " and dealt "+ damage +
+      " points of damage to "+other+"'s shield.";
+    } else {
+      return this + " made a disgusting drink for "+ other + " and dealt enough damage to break "+other+
+      "'s shield, in addition to dealing "+dmgMessage+" points of damage to "+other+".";
     }
   }
 
@@ -50,32 +57,32 @@ public class Boss extends Adventurer{
   *Reduces rating by 3.
   */
   public String specialAttack(Adventurer other){
-    if(getSpecial() >= 4){
-      setSpecial(getSpecial()-4);
+    if(getSpecial() >= 3){
+      setSpecial(getSpecial()-3);
       int ownDamage = (int)(Math.random()*8)+1;
       this.applyDamage(ownDamage);
       int damage;
-      if (ownDamage >= 4){
-        damage = (int)(Math.random()*10)+4;
+      if (ownDamage >= 3){
+        damage = (int)(Math.random()*9)+6;
         other.applyDamage(damage);
       } else {
-        damage = (int)(Math.random()*5)+2;
+        damage = (int)(Math.random()*5)+5;
         other.applyDamage(damage);
       }
       if ((damage <= 4) && (this.getmaxHP()/2 > this.getHP())){
-        return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
+        return this + " threw a hot drink at "+other+ " but almost missed. "+this+" dealt "+damage+
         " points of damage, but also received a bad review and lost " + (ownDamage * 1.2) + " points of damage.";
       }
       if (damage <= 4){
-        return this + " threw a rotten drink at "+other+ " but almost missed. "+this+" dealt "+damage+
+        return this + " threw a hot drink at "+other+ " but almost missed. "+this+" dealt "+damage+
         " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
       }
       if ((damage > 4) && (this.getmaxHP()/2 > this.getHP())){
-        return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
+        return this + " threw a hot drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
         " points of damage, but also received a bad review and lost " + (ownDamage * 1.2) + " points of damage.";
       }
       else{
-        return this + " threw a rotten drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
+        return this + " threw a hot drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
         " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
       }
     }else{
@@ -92,6 +99,7 @@ public class Boss extends Adventurer{
   public String support(){
     int hp = 10;
     setHP(getHP()+hp);
+    setSalmonella(false);
     return this+" makes and drinks a delicious matcha tea to add "+restoreSpecial(3)+" to their "
     + getSpecialName()+ " and "+hp+" HP";
   }
