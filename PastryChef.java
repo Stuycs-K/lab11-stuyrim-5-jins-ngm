@@ -58,7 +58,7 @@ public class PastryChef extends Adventurer{
       setSpecial(getSpecial()-8);
       return "entire enemy party";
     }else{
-      return "Unfortunately, "+this+" is a bit short on sugar, so they can only make one pastry. "+attack(other);
+      return this+" is short on sugar, so they can only make one pastry. "+attack(other);
     }
 
   }
