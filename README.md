@@ -7,9 +7,9 @@
 
 :white_check_mark: play against 1-3 randomly chosen adventurer opponents
 
-:question: use attack/special operations on your opponents
+:white_check_mark: use attack/special operations on your opponents
 
-:question: use support operations on your team
+:white_check_mark: use support operations on your team
 
 :white_check_mark: program ends when the user choosed to quit, or all enemies is defeated, or the entire party is defeated. A win/lose screen is useful here.
 
@@ -25,7 +25,7 @@
 - passive ability: if HP is below 50%, damage of any attack (both normal and special attack) is increased by 20%
 # **PastryChef**
 - special: sugar
-- attack: make a pastry with raw eggs so that the opponent gets salmonella. They will then lose HP at every subsequent turn until they are healed by either a teammate or themself.
+- attack: make a pastry with raw eggs so that the opponent gets salmonella. They will then lose HP at every one of their subsequent turns until they are healed by either a teammate or themself.
 - support: make a really good cake that cheers up a chosen party member (including themself), increasing their HP and special
 - special attack: if they have enough sugar, they can use their normal attack on multiple opponents 
 - passive ability: when sugar is below 30%, their pastry also will also taste really bad, so the opponent loses some HP upon eating it in addition to contracting salmonella

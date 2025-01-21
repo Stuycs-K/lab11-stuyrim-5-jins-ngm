@@ -86,6 +86,10 @@ public class Boss extends Adventurer{
         " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
       }
     }else{
+      if (this.hasSalmonella()){
+        int salmonellaDamage = (int)(Math.random()*3)+1;
+        this.applyDamage(salmonellaDamage);
+      }
       return this+"'s rating is too low to throw a drink. Instead "+attack(other);
     }
 

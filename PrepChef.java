@@ -83,6 +83,7 @@ public class PrepChef extends Adventurer{
       member.setHP(member.getHP()+hp);
       member.restoreSpecial(specialRestore);
       member.setBuffed(true);
+      member.setSalmonella(false);
     }
     String s= this+" went outside, bought ingredients, and prepped them, restoring "+hp+" HP and "+specialRestore+" ";
     for (int i=0; i<getParty().size(); i++) {

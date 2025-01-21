@@ -61,11 +61,12 @@ public abstract class Adventurer{
   public int applyDamage(int amount){
     if (isShielded()) {
       if (shield.getHP()<=amount) {
+        int initialShieldHP = amount-shield.getHP();
         this.HP = Math.max(this.HP-(amount-shield.getHP()), 0);
         for (Adventurer member : party) {
           member.setShield(null);
         }
-        return amount-shield.getHP();
+        return initialShieldHP;
       } else {
         shield.applyDamage(amount);
         return -1;
@@ -121,7 +122,7 @@ public abstract class Adventurer{
   }
 
   public boolean isShielded() {
-    return !(shield==null);
+    return getShield()!=null;
   }
 
   public Shield getShield() {

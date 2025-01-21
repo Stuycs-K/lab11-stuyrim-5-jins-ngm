@@ -144,11 +144,23 @@ public class Game{
         } else {
           type = "PrepChef";
         }
-        String coloredHP = colorByPercent(member.getHP(),member.getmaxHP());
+        String wellness;
+        if (member.hasSalmonella()) {
+          wellness="sick";
+        } else {
+          wellness="well";
+        }
+        String shieldMessage;
+        if (!member.isShielded()) {
+          shieldMessage="unshielded";
+        } else {
+          shieldMessage="shieldHP: "+member.getShield().getHP();
+        }
+        String coloredHP = colorByPercent(member.getHP(), member.getmaxHP());
         TextBox(startRow, 3+i*78/party.size(), 78/party.size(), 1, member.toString()+" ("+type+")");
         TextBox(startRow+1, 3+i*78/party.size(), 78/party.size(), 1, "HP: "+coloredHP);
         TextBox(startRow+2, 3+i*78/party.size(), 78/party.size(), 1, member.getSpecialName()+": "+member.getSpecial()+"/"+member.getSpecialMax());
-        TextBox(startRow+3, 3+i*78/party.size(), 78/party.size(), 1, "sick: "+member.hasSalmonella());
+        TextBox(startRow+3, 3+i*78/party.size(), 78/party.size(), 1, wellness+"/"+shieldMessage);
       }
     }
 
@@ -341,6 +353,10 @@ public class Game{
             //assume the value that follows su  is an integer.
             int playerNumber = Integer.parseInt(input.substring(input.length()-1));
             msg = party.get(whichPlayer).support(party.get(playerNumber));
+          }
+          if (party.get(whichPlayer).hasSalmonella()) {
+            int salmonellaDamage = (int)(Math.random()*3)+1;
+            party.get(whichPlayer).setHP(party.get(whichPlayer).getHP()-salmonellaDamage);
           }
           //You should decide when you want to re-ask for user input
 
