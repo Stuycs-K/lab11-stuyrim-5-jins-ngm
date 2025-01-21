@@ -3,9 +3,11 @@
 
 ## Features
 
-:white_check_mark: play with a group of 3 different types adventurers
+:white_check_mark: play with a group of 2-4 different types adventurers
 
 :white_check_mark: play against 1-3 randomly chosen adventurer opponents
+
+:white_check_mark: have a Boss class
 
 :white_check_mark: use attack/special operations on your opponents
 
@@ -20,6 +22,10 @@
 :ballot_box_with_check: have a "passive ability" for each adventurer subclass
 
 :ballot_box_with_check: give (distinct) names to each of the adventurers
+
+:ballot_box_with_check: allow user to type in prompts with no index when appropriate (i.e. with support abilities)
+
+:ballot_box_with_check: display some past actions
 
 ## Adventurer Subclasses
 
