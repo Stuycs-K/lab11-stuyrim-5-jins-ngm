@@ -36,9 +36,15 @@ public class Boss extends Adventurer{
     int damage;
     if (this.getmaxHP()/2 > this.getHP()){
       damage = (int)(1.2*((int)(Math.random()*5)+4));
+      if (this.isBuffed()){
+        damage+=5;
+      }
     }
     else{
       damage = (int)(Math.random()*5)+4;
+      if (this.isBuffed()){
+        damage+=5;
+      }
     }
     int dmgMessage = other.applyDamage(damage);
     if (dmgMessage==-2){
@@ -64,9 +70,15 @@ public class Boss extends Adventurer{
       int damage;
       if (ownDamage >= 3){
         damage = (int)(Math.random()*9)+6;
+        if (this.isBuffed()){
+          damage+=5;
+        }
         other.applyDamage(damage);
       } else {
         damage = (int)(Math.random()*5)+5;
+        if (this.isBuffed()){
+          damage+=5;
+        }
         other.applyDamage(damage);
       }
       if ((damage <= 4) && (this.getmaxHP()/2 > this.getHP())){
