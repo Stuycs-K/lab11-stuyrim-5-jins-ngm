@@ -355,8 +355,9 @@ public class Game{
             msg = party.get(whichPlayer).support(party.get(playerNumber));
           }
           if (party.get(whichPlayer).hasSalmonella()) {
-            int salmonellaDamage = (int)(Math.random()*3)+1;
+            int salmonellaDamage = (int)(Math.random()*3)+2;
             party.get(whichPlayer).setHP(party.get(whichPlayer).getHP()-salmonellaDamage);
+            printMessage(""+party.get(whichPlayer)+" is suffering from salmonella and lost "+salmonellaDamage+" points of HP.", messageQueueRight, 42, 4);
           }
           //You should decide when you want to re-ask for user input
 
@@ -423,6 +424,11 @@ public class Game{
           }
           target = enemies.get(targetIndex);
           msg=enemy.support(target);
+        }
+        if (enemy.hasSalmonella()) {
+          int salmonellaDamage = (int)(Math.random()*3)+2;
+          enemy.setHP(enemy.getHP()-salmonellaDamage);
+          printMessage(""+enemy+" is suffering from salmonella and lost "+salmonellaDamage+" points of HP.", messageQueueRight, 42, 4);
         }
 
         drawScreen(party, enemies, false);
