@@ -57,8 +57,23 @@ public abstract class Adventurer{
   standard methods
   */
 
-  public void applyDamage(int amount){
-    this.HP = Math.max(this.HP-amount, 0);
+  //returns DAMAGE SUSTAINED if shield breaks, -1 if shielded and doesn't break, -2 if unshielded
+  public int applyDamage(int amount){
+    if (isShielded()) {
+      if (shield.getHP()<=amount) {
+        this.HP = Math.max(this.HP-(amount-shield.getHP()), 0);
+        for (Adventurer member : party) {
+          member.setShield(null);
+        }
+        return amount-shield.getHP();
+      } else {
+        shield.applyDamage(amount);
+        return -1;
+      }
+    } else {
+      this.HP = Math.max(this.HP-amount, 0);
+      return -2;
+    }
   }
 
   //You did it wrong if this happens.
