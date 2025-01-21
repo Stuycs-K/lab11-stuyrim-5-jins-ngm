@@ -94,6 +94,7 @@ public class PrepChef extends Adventurer{
     if (this.hasSalmonella()){
       int salmonellaDamage = (int)(Math.random()*3)+1;
       this.applyDamage(salmonellaDamage);
+      this.setSalmonella(false);
     }
     int hp = (int)(Math.random()*4)+3;
     int specialRestore = 3+(int)(Math.random())+(int)(Math.random());

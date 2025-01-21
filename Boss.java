@@ -112,6 +112,7 @@ public class Boss extends Adventurer{
     if (this.hasSalmonella()){
       int salmonellaDamage = (int)(Math.random()*3)+1;
       this.applyDamage(salmonellaDamage);
+      this.setSalmonella(false);
     }
     int hp = 10;
     setHP(getHP()+hp);

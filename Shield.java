@@ -8,7 +8,7 @@ public class Shield{
   public Shield(int maxHP, boolean rebound, Adventurer a){
     HP=maxHP;
     this.rebound=rebound;
-    target=a;
+    target=a;                                                                                                                                                                              
   }
 
   public int getHP() {

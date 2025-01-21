@@ -86,6 +86,7 @@ public class PastryChef extends Adventurer{
     if (this.hasSalmonella()){
       int salmonellaDamage = (int)(Math.random()*3)+1;
       this.applyDamage(salmonellaDamage);
+      this.setSalmonella(false);
     }
     int heal = 3+(int)(Math.random()*4);
     setHP(getHP()+heal);
