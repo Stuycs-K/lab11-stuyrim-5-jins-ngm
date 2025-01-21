@@ -83,6 +83,9 @@ public class PrepChef extends Adventurer{
   }
 
   public String support(Adventurer other){
+    if (other.hasSalmonella()){
+      other.hasSalmonella() = false;
+    }
     return support();
   }
 
