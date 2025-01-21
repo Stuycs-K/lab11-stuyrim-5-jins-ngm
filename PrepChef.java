@@ -34,14 +34,16 @@ public class PrepChef extends Adventurer{
   /*Decreases opponent's special, while losing 2 money*/
   public String attack(Adventurer other){
     int removed = (int)(Math.random()*other.getSpecial());
+    if (this.isBuffed()){
+      removed+=5;
+    }
     setSpecial(getSpecial()-2);
     other.setSpecial(other.getSpecial()-removed);
     return this + " stole ingredients from "+ other + " and took away "+ removed + " " +
     other.getSpecialName()+". "+this+" celebrates.";
   }
 
-  /*Deal 2-13 damage to opponent, only if money is high enough.
-  *Reduces money by 3.
+  /*Decreases opponent's special, while losing 3 money.
   */
   public String specialAttack(Adventurer other){
     int moneySpent = 3+(int)(Math.random()*3);
