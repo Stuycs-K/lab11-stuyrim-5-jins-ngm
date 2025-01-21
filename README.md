@@ -33,5 +33,5 @@
 - special: money
 - attack: steals ingredients from their opponent, decreasing their special attribute
 - support: they went outside, bought ingredients and prepped them, increasing HP and special of everyone in their party and increasing their damage for the next move. (This buff does not affect shield rebound damage.)
-- special: they buy everyone on their team aprons, casting a shield (which has shieldHP based on money consumed). If a shield is cast while an existing shield is still up, it will replace the existing shield. This shield will protect against the PrepChef's "stealing" attack regardless of the amount of shieldHP, but it will not protect against the salmonella status effect or the self-HP loss from the Barista special attack.
+- special: they buy everyone on their team aprons, casting a shared shield over the entire team (which has shieldHP based on money consumed). If a shield is cast while an existing shield is still up, it will replace the existing shield. This shield will protect against the PrepChef's "stealing" attack regardless of the amount of shieldHP, but it will not protect against the salmonella status effect or the self-HP loss from the Barista special attack.
 - passive ability: when casting the shield, there is a 50% chance the aprons are extra fancy and deal rebound damage when hit by an opponent. 
