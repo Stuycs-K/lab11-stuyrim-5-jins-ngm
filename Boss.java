@@ -53,7 +53,7 @@ public class Boss extends Adventurer{
     }
   }
 
-  /*Deal 2-13 damage to opponent, only if rating is high enough.
+  /*Deal 6-15 damage to opponent, only if rating is high enough.
   *Reduces rating by 3.
   */
   public String specialAttack(Adventurer other){
@@ -62,34 +62,42 @@ public class Boss extends Adventurer{
       int ownDamage = (int)(Math.random()*8)+1;
       this.applyDamage(ownDamage);
       int damage;
+      int dmgMessage;
       if (ownDamage >= 3){
-        damage = (int)(Math.random()*9)+6;
-        other.applyDamage(damage);
+        if (this.getmaxHP()/2 > this.getHP()){
+          damage = (int)(1.2*((int)(Math.random()*9)+6));
+        }
+        else{
+          damage = (int)(Math.random()*9)+6;
+        }
+        dmgMessage = other.applyDamage(damage);
       } else {
-        damage = (int)(Math.random()*5)+5;
-        other.applyDamage(damage);
+        if (this.getmaxHP()/2 > this.getHP()){
+          damage = (int)(1.2*((int)(Math.random()*5)+5));
+        }
+        else{
+          damage = (int)(Math.random()*5)+5;
+        }
+        dmgMessage = other.applyDamage(damage);
       }
-      if ((damage <= 4) && (this.getmaxHP()/2 > this.getHP())){
-        return this + " threw a hot drink at "+other+ " but almost missed. "+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + (ownDamage * 1.2) + " points of damage.";
+      String missing;
+      if (damage<=5) {
+        missing = " but almost missed. ";
+      } else {
+        missing = " and hit them perfectly. ";
       }
-      if (damage <= 4){
-        return this + " threw a hot drink at "+other+ " but almost missed. "+this+" dealt "+damage+
+      if (dmgMessage==-2){
+        return this + " threw a hot drink at "+other+missing+this+" dealt "+damage+
         " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
+      } else if (dmgMessage==-1) {
+        return this + " threw a hot drink at "+ other+missing+this+" dealt "+ damage + " points of damage to "+
+        other+"'s shield, but also received a bad review and lost " + ownDamage + " points of damage.";
+      } else {
+        return this + " threw a hot drink at "+ other+missing+this+" dealt enough damage to break "+other+
+        "'s shield, in addition to dealing "+dmgMessage+" points of damage to "+other+". However, they"+ 
+        "also received a bad review and lost " + ownDamage + " points of damage.";
       }
-      if ((damage > 4) && (this.getmaxHP()/2 > this.getHP())){
-        return this + " threw a hot drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + (ownDamage * 1.2) + " points of damage.";
-      }
-      else{
-        return this + " threw a hot drink at "+other+ " and hit them perfectly. "+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
-      }
-    }else{
-      if (this.hasSalmonella()){
-        int salmonellaDamage = (int)(Math.random()*3)+1;
-        this.applyDamage(salmonellaDamage);
-      }
+    } else {
       return this+"'s rating is too low to throw a drink. Instead "+attack(other);
     }
 
