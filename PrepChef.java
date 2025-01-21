@@ -66,7 +66,7 @@ public class PrepChef extends Adventurer{
         Adventurer member=getParty().get(i);
         member.setShield(s);
       }
-      String msg = this+" went out and spent "+moneySpent+" on buying everyone aprons! They are now shielded from potential attack. ";
+      String msg = this+" went out and spent "+moneySpent+" money on buying everyone aprons! They are now shielded from potential attack. ";
       if (rebound) {
         msg+="These aprons will deal rebound damage whenever "+other+" attacks.";
       }
