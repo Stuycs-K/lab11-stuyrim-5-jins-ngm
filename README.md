@@ -26,7 +26,7 @@
 # **PastryChef**
 - special: sugar
 - attack: make a pastry with raw eggs so that the opponent gets salmonella. They will then lose HP at every one of their subsequent turns until they are healed by either a teammate or themself.
-- support: make a really good cake that cheers up a chosen party member (including themself), increasing their HP and special
+- support: make a really good pastry that cheers up a chosen party member (including themself), increasing their HP and special
 - special attack: if they have enough sugar, they will be able to use their normal attack on the entire enemy team
 - passive ability: when sugar is below 30%, their pastry also will also taste really bad, so the opponent loses some HP upon eating it in addition to contracting salmonella
 # **PrepChef**
@@ -34,4 +34,4 @@
 - attack: steals ingredients from their opponent, decreasing their special attribute
 - support: they went outside, bought ingredients and prepped them, increasing HP and special of everyone in their party and increasing their damage for the next move. (This buff does not affect shield rebound damage.)
 - special: they buy everyone on their team aprons, casting a shared shield over the entire team (which has shieldHP based on money consumed). If a shield is cast while an existing shield is still up, it will replace the existing shield. This shield will protect against the PrepChef's "stealing" attack regardless of the amount of shieldHP, but it will not protect against the salmonella status effect or the self-HP loss from the Barista special attack.
-- passive ability: when casting the shield, there is a 50% chance the aprons are extra fancy and deal rebound damage when hit by an opponent. 
+- passive ability: when casting the shield, there is a 50% chance the aprons are extra fancy and deal rebound damage when hit by an opponent. (PrepChef's "stealing" attack will not trigger rebound damage.)
