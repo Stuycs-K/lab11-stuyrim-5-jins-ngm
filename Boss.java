@@ -102,7 +102,7 @@ public class Boss extends Adventurer{
 
   public String support(Adventurer other){
     if (other.hasSalmonella()){
-      other.hasSalmonella() = false;
+      other.setSalmonella(false);
     }
     return support();
   }
