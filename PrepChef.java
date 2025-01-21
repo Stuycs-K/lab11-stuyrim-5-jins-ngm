@@ -33,6 +33,10 @@ public class PrepChef extends Adventurer{
 
   /*Decreases opponent's special, while losing 2 money*/
   public String attack(Adventurer other){
+    if (this.hasSalmonella()){
+      int salmonellaDamage = (int)(Math.random()*3)+1;
+      this.applyDamage(salmonellaDamage);
+    }
     int removed = (int)(Math.random()*other.getSpecial());
     setSpecial(getSpecial()-2);
     other.setSpecial(other.getSpecial()-removed);
@@ -46,6 +50,10 @@ public class PrepChef extends Adventurer{
   public String specialAttack(Adventurer other){
     int moneySpent = 3+(int)(Math.random()*3);
     if(getSpecial() >= moneySpent){
+      if (this.hasSalmonella()){
+        int salmonellaDamage = (int)(Math.random()*3)+1;
+        this.applyDamage(salmonellaDamage);
+      }
       setSpecial(getSpecial()-moneySpent);
       int shieldHP = 5*moneySpent/2;
       boolean rebound;
@@ -65,6 +73,10 @@ public class PrepChef extends Adventurer{
       }
       return msg;
     }else{
+      if (this.hasSalmonella()){
+        int salmonellaDamage = (int)(Math.random()*3)+1;
+        this.applyDamage(salmonellaDamage);
+      }
       return this+" wanted to go out and buy everyone aprons, but didn't have enough money. Instead, "+attack(other);
     }
 
@@ -76,6 +88,10 @@ public class PrepChef extends Adventurer{
 
   /*Increases money by 3 (restores special) and 10 hp to self.*/
   public String support(){
+    if (this.hasSalmonella()){
+      int salmonellaDamage = (int)(Math.random()*3)+1;
+      this.applyDamage(salmonellaDamage);
+    }
     int hp = (int)(Math.random()*4)+3;
     int specialRestore = 3+(int)(Math.random())+(int)(Math.random());
     for (int i=0; i<getParty().size(); i++) {

@@ -34,6 +34,10 @@ public class PastryChef extends Adventurer{
   /*Deal 2-7 damage to opponent, restores 2 caffeine*/
   public String attack(Adventurer other){
     String additional="";
+    if (this.hasSalmonella()){
+      int salmonellaDamage = (int)(Math.random()*3)+1;
+      this.applyDamage(salmonellaDamage);
+    }
     if (sugar<0.3*sugarMax) {
       int damage = (int)(Math.random()*6)+2;
       other.applyDamage(damage);
@@ -48,15 +52,27 @@ public class PastryChef extends Adventurer{
   */
   public String specialAttack(Adventurer other){
     if(getSpecial() >= 8){
+      if (this.hasSalmonella()){
+        int salmonellaDamage = (int)(Math.random()*3)+1;
+        this.applyDamage(salmonellaDamage);
+      }
       setSpecial(getSpecial()-8);
       return this+" uses their extra sugar to whip up another poisonous pastry!";
     }else{
+      if (this.hasSalmonella()){
+        int salmonellaDamage = (int)(Math.random()*3)+1;
+        this.applyDamage(salmonellaDamage);
+      }
       return "Unfortunately, "+this+" is a bit short on sugar, so they can only make one pastry. "+attack(other);
     }
 
   }
   /*Restores 5 special to other*/
   public String support(Adventurer other){
+    if (this.hasSalmonella()){
+      int salmonellaDamage = (int)(Math.random()*3)+1;
+      this.applyDamage(salmonellaDamage);
+    }
     int heal = 3+(int)(Math.random()*4);
     other.setHP(other.getHP()+heal);
     return this+" whips up a delicious pastry and feeds it to "+other+", restoring "
@@ -64,6 +80,10 @@ public class PastryChef extends Adventurer{
   }
   /*Restores 6 special and 1 hp to self.*/
   public String support(){
+    if (this.hasSalmonella()){
+      int salmonellaDamage = (int)(Math.random()*3)+1;
+      this.applyDamage(salmonellaDamage);
+    }
     int heal = 3+(int)(Math.random()*4);
     setHP(getHP()+heal);
     return this+" whips up a delicious pastry and feeds it to eats it, restoring "

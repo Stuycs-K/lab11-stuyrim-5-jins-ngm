@@ -37,10 +37,18 @@ public class Boss extends Adventurer{
     other.applyDamage(damage);
     restoreSpecial(1);
     if (this.getmaxHP()/2 > this.getHP()){
+      if (this.hasSalmonella()){
+        int salmonellaDamage = (int)(Math.random()*3)+1;
+        this.applyDamage(salmonellaDamage);
+      }
       return this + " made a rotten drink for "+ other + " and dealt "+ (damage * 1.2) +
       " points of damage. "+other+" threw up and "+this+" laughed.";
     }
     else{
+      if (this.hasSalmonella()){
+        int salmonellaDamage = (int)(Math.random()*3)+1;
+        this.applyDamage(salmonellaDamage);
+      }
       return this + " made a rotten drink for "+ other + " and dealt "+ damage +
       " points of damage. "+other+" threw up and "+this+" laughed.";
     }
@@ -51,6 +59,10 @@ public class Boss extends Adventurer{
   */
   public String specialAttack(Adventurer other){
     if(getSpecial() >= 4){
+      if (this.hasSalmonella()){
+        int salmonellaDamage = (int)(Math.random()*3)+1;
+        this.applyDamage(salmonellaDamage);
+      }
       setSpecial(getSpecial()-4);
       int ownDamage = (int)(Math.random()*8)+1;
       this.applyDamage(ownDamage);
@@ -79,6 +91,10 @@ public class Boss extends Adventurer{
         " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
       }
     }else{
+      if (this.hasSalmonella()){
+        int salmonellaDamage = (int)(Math.random()*3)+1;
+        this.applyDamage(salmonellaDamage);
+      }
       return this+"'s rating is too low to throw a drink. Instead "+attack(other);
     }
 
@@ -90,6 +106,10 @@ public class Boss extends Adventurer{
 
   /*Increases rating by 3 (restores special) and 10 hp to self.*/
   public String support(){
+    if (this.hasSalmonella()){
+      int salmonellaDamage = (int)(Math.random()*3)+1;
+      this.applyDamage(salmonellaDamage);
+    }
     int hp = 10;
     setHP(getHP()+hp);
     return this+" makes and drinks a delicious matcha tea to add "+restoreSpecial(3)+" to their "
