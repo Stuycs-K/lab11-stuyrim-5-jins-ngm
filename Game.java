@@ -41,7 +41,7 @@ public class Game{
     for (int i = 12; i < 25; i++){
       Text.go(i,40);
       System.out.print(Text.colorize("\u2502",Text.BOLD,Text.CYAN));
-    
+    }
     for (int i = 2; i < 80; i++){
       Text.go(25,i);
       System.out.print(Text.colorize("\u2500",Text.BOLD,Text.CYAN));
