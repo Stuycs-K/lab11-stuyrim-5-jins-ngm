@@ -27,7 +27,7 @@
 - special: sugar
 - attack: make a pastry with raw eggs so that the opponent gets salmonella. They will then lose HP at every one of their subsequent turns until they are healed by either a teammate or themself.
 - support: make a really good cake that cheers up a chosen party member (including themself), increasing their HP and special
-- special attack: if they have enough sugar, they can use their normal attack on multiple opponents 
+- special attack: if they have enough sugar, they will be able to use their normal attack on the entire enemy team
 - passive ability: when sugar is below 30%, their pastry also will also taste really bad, so the opponent loses some HP upon eating it in addition to contracting salmonella
 # **PrepChef**
 - special: money
