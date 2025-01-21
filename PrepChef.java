@@ -33,7 +33,7 @@ public class PrepChef extends Adventurer{
 
   /*Decreases opponent's special*/
   public String attack(Adventurer other){
-    int removed = (int)(Math.random()*other.getSpecial()*0.6)+(int)(other.getSpecial()*0.2);
+    int removed = (int)(Math.random()*other.getSpecial()*0.6)+1;
     if (this.isBuffed()){
       removed+=2;
     }
