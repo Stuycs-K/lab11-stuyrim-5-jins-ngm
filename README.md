@@ -17,9 +17,9 @@
 
 :white_check_mark: display the results of the attack/special/support inside the border
 
-:heavy_check_mark: have a "passive ability" for each adventurer subclass
+:ballot_box_with_check: have a "passive ability" for each adventurer subclass
 
-:heavy_check_mark: give (distinct) names to each of the adventurers
+:ballot_box_with_check: give (distinct) names to each of the adventurers
 
 ## Adventurer Subclasses
 
