@@ -15,7 +15,7 @@ public class Game{
     //screen border
     for (int i = 1; i < 81; i++){
       Text.go(1,i);
-      System.out.print(Text.colorize("\u2501",Text.BOLD,Text.CYAN));
+      System.out.print(Text.colorize("\u2500",Text.BOLD,Text.CYAN));
     }
     for (int i = 1; i < 81; i++){
       Text.go(30,i);
@@ -48,7 +48,7 @@ public class Game{
     }
     //corners
     Text.go(1, 1);
-    System.out.print(Text.colorize("\u250F", Text.BOLD, Text.CYAN));
+    System.out.print(Text.colorize("\u250C", Text.BOLD, Text.CYAN));
     Text.go(30, 1);
     System.out.print(Text.colorize("\u2515", Text.BOLD, Text.CYAN));
   }
