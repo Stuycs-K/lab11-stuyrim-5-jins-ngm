@@ -38,17 +38,25 @@ public class PastryChef extends Adventurer{
       if (this.isBuffed()){
         damage+=5;
       }
-      other.applyDamage(damage);
-      additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+" thus sustains "+damage+" points of damage.";
+      int dmgMessage = other.applyDamage(damage);
+      if (dmgMessage==-2){
+        additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+" thus sustains "+damage+" points of damage.";
+      } else if (dmgMessage==-1) {
+        additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+"'s shield thus sustains "+damage+" points of damage.";
+      } else {
+        additional="Due to "+this+"'s shortage of sugar, the pastry also tastes really bad. "+other+"'s shield breaks and "+other+" sustains "+damage+" points of damage.";
+      }
     }
+    setBuffed(false);
     other.setSalmonella(true);
     return this + " made a pastry with raw eggs and fed it to "+ other + ", giving them salmonella. "+additional;
   }
 
   public String specialAttack(Adventurer other){
+    setBuffed(false);
     if(getSpecial() >= 8){
       setSpecial(getSpecial()-8);
-      return this+" uses their extra sugar to whip up another poisonous pastry!";
+      return attack(other)+" "+this+" uses their extra sugar to whip up another poisonous pastry!";
     }else{
       return "Unfortunately, "+this+" is a bit short on sugar, so they can only make one pastry. "+attack(other);
     }
@@ -57,6 +65,7 @@ public class PastryChef extends Adventurer{
 
   public String support(Adventurer other){
     other.setSalmonella(false);
+    setBuffed(false);
     int heal = 3+(int)(Math.random()*4);
     other.setHP(other.getHP()+heal);
     return this+" whips up a delicious pastry and feeds it to "+other+", restoring "
@@ -65,6 +74,7 @@ public class PastryChef extends Adventurer{
 
   public String support(){
     this.setSalmonella(false);
+    setBuffed(false);
     int heal = 3+(int)(Math.random()*4);
     setHP(getHP()+heal);
     return this+" whips up a delicious pastry and eats it, restoring "

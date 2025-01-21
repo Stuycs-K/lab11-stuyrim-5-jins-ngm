@@ -46,6 +46,7 @@ public class Boss extends Adventurer{
         damage+=5;
       }
     }
+    setBuffed(false);
     int dmgMessage = other.applyDamage(damage);
     if (dmgMessage==-2){
       return this + " made a disgusting drink for "+ other + " and dealt "+ damage +
@@ -66,7 +67,7 @@ public class Boss extends Adventurer{
     if(getSpecial() >= 3){
       setSpecial(getSpecial()-3);
       int ownDamage = (int)(Math.random()*8)+1;
-      this.applyDamage(ownDamage);
+      setHP(getHP()-ownDamage);
       int damage;
       int dmgMessage;
       if (ownDamage >= 3){
@@ -98,16 +99,17 @@ public class Boss extends Adventurer{
       } else {
         missing = " and hit them perfectly. ";
       }
+      setBuffed(false);
       if (dmgMessage==-2){
         return this + " threw a hot drink at "+other+missing+this+" dealt "+damage+
-        " points of damage, but also received a bad review and lost " + ownDamage + " points of damage.";
+        " points of damage, but also received a bad review and lost " + ownDamage + " HP.";
       } else if (dmgMessage==-1) {
         return this + " threw a hot drink at "+ other+missing+this+" dealt "+ damage + " points of damage to "+
-        other+"'s shield, but also received a bad review and lost " + ownDamage + " points of damage.";
+        other+"'s shield, but also received a bad review and lost " + ownDamage + " HP.";
       } else {
         return this + " threw a hot drink at "+ other+missing+this+" dealt enough damage to break "+other+
-        "'s shield, in addition to dealing "+dmgMessage+" points of damage to "+other+". However, they"+ 
-        "also received a bad review and lost " + ownDamage + " points of damage.";
+        "'s shield, and dealt "+dmgMessage+" points of damage to "+other+". However, they "+ 
+        "also received a bad review and lost " + ownDamage + " HP.";
       }
     } else {
       return this+"'s rating is too low to throw a drink. Instead "+attack(other);
@@ -124,7 +126,8 @@ public class Boss extends Adventurer{
     int hp = 10;
     setHP(getHP()+hp);
     setSalmonella(false);
+    setBuffed(false);
     return this+" makes and drinks a delicious matcha tea to add "+restoreSpecial(3)+" to their "
-    + getSpecialName()+ " and "+hp+" HP";
+    + getSpecialName()+ " and "+hp+" HP.";
   }
 }

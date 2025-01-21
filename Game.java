@@ -46,6 +46,9 @@ public class Game{
       Text.go(25,i);
       System.out.print(Text.colorize("-",Text.BOLD,Text.CYAN));
     }
+    //corners
+    Text.go(1, 1);
+    System.out.print(Text.colorize("\u250F", Text.BOLD, Text.CYAN));
   }
 
   //Display a line of text starting at
@@ -66,6 +69,16 @@ public class Game{
   *@param height the number of rows
   */
 
+  public static int countChar(String s) {
+    int ans=0;
+    for (int i=0; i<s.length(); i++) {
+      if (s.charAt(i)>=32 && s.charAt(i)<=127) {
+        ans++;
+      }
+    }
+    return ans;
+  }
+
   public static void TextBox(int row, int col, int width, int height, String text){
     String[] queue;
     if (!text.equals(" ")) {
@@ -77,20 +90,20 @@ public class Game{
     int currentCol=col;
     int currentRow=row;
     for (int i=0; i<queue.length; i++) {
-      if (currentCol+queue[i].length()>col+width) {
+      if (currentCol+countChar(queue[i])>col+width) {
         currentRow++;
         Text.go(currentRow, col);
         currentCol=col;
       }
       if (currentRow<row+height) {
         System.out.print(queue[i]);
-        if (currentCol+queue[i].length()<col+width) {
+        if (currentCol+countChar(queue[i])<col+width) {
            System.out.print(" ");
-           Text.go(currentRow, currentCol+queue[i].length()+1);
-           currentCol+=queue[i].length()+1;
+           Text.go(currentRow, currentCol+countChar(queue[i])+1);
+           currentCol+=countChar(queue[i])+1;
         } else {
-          Text.go(currentRow, currentCol+queue[i].length());
-          currentCol+=queue[i].length();
+          Text.go(currentRow, currentCol+countChar(queue[i]));
+          currentCol+=countChar(queue[i]);
         }
       }
     }
@@ -352,7 +365,11 @@ public class Game{
             //"support 0" or "su 0" or "su 2" etc.
             //assume the value that follows su  is an integer.
             int playerNumber = Integer.parseInt(input.substring(input.length()-1));
-            msg = party.get(whichPlayer).support(party.get(playerNumber));
+            if (party.get(whichPlayer).getSpecialName().equals("sugar") && playerNumber==whichPlayer) {
+              msg = party.get(whichPlayer).support();
+            } else {
+              msg = party.get(whichPlayer).support(party.get(playerNumber));
+            }
           }
           if (party.get(whichPlayer).hasSalmonella()) {
             int salmonellaDamage = (int)(Math.random()*3)+2;
@@ -418,12 +435,13 @@ public class Game{
         } else if(Math.random()<0.5){
           msg=enemy.specialAttack(target);
         } else {
-          int targetIndex =(int)(Math.random()*(enemies.size()-1));
-          if (targetIndex>=whichOpponent && enemies.size()>1) {
-            targetIndex++;
-          }
+          int targetIndex =(int)(Math.random()*enemies.size());
           target = enemies.get(targetIndex);
-          msg=enemy.support(target);
+          if (enemy.getSpecialName().equals("sugar") && whichOpponent==targetIndex) {
+            msg = enemy.support();
+          } else {
+            msg = enemy.support(target);
+          }
         }
         if (enemy.hasSalmonella()) {
           int salmonellaDamage = (int)(Math.random()*3)+2;

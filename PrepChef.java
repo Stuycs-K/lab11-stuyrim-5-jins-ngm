@@ -31,21 +31,26 @@ public class PrepChef extends Adventurer{
     return moneyMax;
   }
 
-  /*Decreases opponent's special, while losing 2 money*/
+  /*Decreases opponent's special*/
   public String attack(Adventurer other){
-    int removed = (int)(Math.random()*other.getSpecial());
+    int removed = (int)(Math.random()*other.getSpecial()*0.6)+(int)(other.getSpecial()*0.2);
     if (this.isBuffed()){
-      removed+=5;
+      removed+=2;
     }
-    setSpecial(getSpecial()-2);
-    other.setSpecial(other.getSpecial()-removed);
-    return this + " stole ingredients from "+ other + " and took away "+ removed + " " +
-    other.getSpecialName()+". "+this+" celebrates.";
+    setBuffed(false);
+    if (other.isShielded()) {
+      return this + " tried to steal ingredients from "+other+", but couldn't get past their shield.";
+    } else {
+      other.setSpecial(other.getSpecial()-removed);
+      return this + " stole ingredients from "+ other + " and took away "+ removed + " " +
+      other.getSpecialName()+". "+this+" celebrates.";
+    }
   }
 
   /*Decreases opponent's special, while losing 3 money.
   */
   public String specialAttack(Adventurer other){
+    setBuffed(false);
     int moneySpent = 3+(int)(Math.random()*3);
     if(getSpecial() >= moneySpent){
       setSpecial(getSpecial()-moneySpent);
@@ -63,7 +68,7 @@ public class PrepChef extends Adventurer{
       }
       String msg = this+" went out and spent "+moneySpent+" on buying everyone aprons! They are now shielded from potential attack. ";
       if (rebound) {
-        msg+="In addition, these aprons will deal rebound damage whenever "+other+" attacks.";
+        msg+="These aprons will deal rebound damage whenever "+other+" attacks.";
       }
       return msg;
     }else{
