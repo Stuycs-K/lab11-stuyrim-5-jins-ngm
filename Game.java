@@ -137,21 +137,16 @@ public class Game{
 
     //return a random adventurer (choose between all available subclasses)
     //feel free to overload this method to allow specific names/stats.
-    public static Adventurer createRandomAdventurer(ArrayList<Adventurer> party){
+    public static Adventurer createRandomAdventurer(ArrayList<Adventurer> party, ArrayList<ArrayList<String>> names){
       int type = (int)(3*Math.random());
+      int index = (int) (Math.random()*names.get(type).size());
+      String name = names.get(type).get(index);
+      names.get(type).remove(index);
       if (type==0) {
-        String[] names = new String[]{"Camellia", "Chamomile", "Rose", "Starry", "Lavender", "Jasmine", "Cinnamon", "Lemon"};
-        String name = names[(int) (Math.random()*names.length)];
         return new Boss(name, party);
       } else if (type==1) {
-        String[] names = new String[]{"Maple", "Hazel", "Reese", "Charlotte", "Candy", "Coco", "Amandine", "Madeline",
-        "Milo", "Sugar", "Taffy", "Graham"};
-        String name = names[(int) (Math.random()*names.length)];
         return new PastryChef(name, party);
       } else {
-        String[] names = new String[]{"Brie", "Clementine", "Juniper", "Romaine", "Cherry", "Olive", "Apple", "Ringo", "Anise",
-        "Juniper", "Sage", "Basil", "Saffron"};
-        String name = names[(int) (Math.random()*names.length)];
         return new PrepChef(name, party);
       }
     }
@@ -318,14 +313,18 @@ public class Game{
     //If only 1 enemy is added it should be the boss class.
     //start with 1 boss and modify the code to allow 2-3 adventurers later.
     ArrayList<Adventurer> enemies = new ArrayList<Adventurer>();
+    ArrayList<ArrayList<String>> names=new ArrayList<ArrayList<String>>();
+    names.add(new ArrayList<String>(Arrays.asList(new String[]{"Camellia", "Chamomile", "Rose", "Starry", "Lavender", "Jasmine", "Cinnamon", "Lemon"})));
+    names.add(new ArrayList<String>(Arrays.asList(new String[]{"Maple", "Hazel", "Reese", "Charlotte", "Candy", "Coco", "Amandine", "Madeline", "Milo", "Sugar", "Taffy", "Graham"})));
+    names.add(new ArrayList<String>(Arrays.asList(new String[]{"Brie", "Clementine", "Juniper", "Romaine", "Cherry", "Olive", "Apple", "Ringo", "Anise", "Juniper", "Sage", "Basil", "Saffron"})));
     int enemyCount = (int)(Math.random()*3)+1;
     if (enemyCount == 1){
-      enemies.add(new Boss("Maple", enemies));
+      enemies.add(new Boss("Hazelnut", enemies));
     }
     else{
       boolean bossAdded = false;
       for (int i = 0; i < enemyCount; i++){
-        enemies.add(createRandomAdventurer(enemies));
+        enemies.add(createRandomAdventurer(enemies, names));
       }
     }
 
@@ -334,7 +333,7 @@ public class Game{
     ArrayList<Adventurer> party = new ArrayList<Adventurer>();
     int partyCount = (int)(Math.random()*3)+2;
     for (int i = 0; i < partyCount; i++){
-      party.add(createRandomAdventurer(party));
+      party.add(createRandomAdventurer(party, names));
     }
 
     boolean partyTurn = true;
