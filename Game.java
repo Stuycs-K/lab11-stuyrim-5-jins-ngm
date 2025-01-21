@@ -19,7 +19,7 @@ public class Game{
     }
     for (int i = 1; i < 81; i++){
       Text.go(30,i);
-      System.out.print(Text.colorize("\u2501",Text.BOLD,Text.CYAN));
+      System.out.print(Text.colorize("\u2500",Text.BOLD,Text.CYAN));
     }
     for (int i = 1; i < 31; i++){
       Text.go(i,1);
@@ -32,25 +32,45 @@ public class Game{
     //lines between
     for (int i = 2; i < 80; i++){
       Text.go(6,i);
-      System.out.print(Text.colorize("\u2501",Text.BOLD,Text.CYAN));
+      System.out.print(Text.colorize("\u2500",Text.BOLD,Text.CYAN));
     }
     for (int i = 2; i < 80; i++){
       Text.go(11,i);
-      System.out.print(Text.colorize("\u2501",Text.BOLD,Text.CYAN));
+      System.out.print(Text.colorize("\u2500",Text.BOLD,Text.CYAN));
     }
     for (int i = 12; i < 25; i++){
       Text.go(i,40);
       System.out.print(Text.colorize("\u2502",Text.BOLD,Text.CYAN));
-    }
+    
     for (int i = 2; i < 80; i++){
       Text.go(25,i);
-      System.out.print(Text.colorize("\u2501",Text.BOLD,Text.CYAN));
+      System.out.print(Text.colorize("\u2500",Text.BOLD,Text.CYAN));
     }
     //corners
     Text.go(1, 1);
     System.out.print(Text.colorize("\u250C", Text.BOLD, Text.CYAN));
+    Text.go(1, 80);
+    System.out.print(Text.colorize("\u2510", Text.BOLD, Text.CYAN));
     Text.go(30, 1);
-    System.out.print(Text.colorize("\u2515", Text.BOLD, Text.CYAN));
+    System.out.print(Text.colorize("\u2514", Text.BOLD, Text.CYAN));
+    Text.go(30, 80);
+    System.out.print(Text.colorize("\u2514", Text.BOLD, Text.CYAN));
+    Text.go(6, 1);
+    System.out.print(Text.colorize("\u251C", Text.BOLD, Text.CYAN));
+    Text.go(11, 1);
+    System.out.print(Text.colorize("\u251C", Text.BOLD, Text.CYAN));
+    Text.go(25, 1);
+    System.out.print(Text.colorize("\u251C", Text.BOLD, Text.CYAN));
+    Text.go(6, 80);
+    System.out.print(Text.colorize("\u2524", Text.BOLD, Text.CYAN));
+    Text.go(11, 80);
+    System.out.print(Text.colorize("\u2524", Text.BOLD, Text.CYAN));
+    Text.go(25, 80);
+    System.out.print(Text.colorize("\u2524", Text.BOLD, Text.CYAN));
+    Text.go(11, 40);
+    System.out.print(Text.colorize("\u252C", Text.BOLD, Text.CYAN));
+    Text.go(25, 40);
+    System.out.print(Text.colorize("\u2534", Text.BOLD, Text.CYAN));
   }
 
   //Display a line of text starting at
