@@ -363,7 +363,7 @@ public class Game{
         for (int i=2; i<80; i++) {
           drawText(" ", 26, i);
         }
-        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/support/special/quit";
+        String prompt = "Enter command for "+party.get(whichPlayer)+": (a)ttack/(su)pport/(sp)ecial/(q)uit + 0/1/...";
         drawText(prompt, 26, 3);
         input="some string";
 
@@ -385,7 +385,9 @@ public class Game{
               }
             }
           } catch (Exception ex) {
-            input="some string";
+            if (!(input.startsWith("su") || input.startsWith("support"))) {
+              input="some string";
+            }
           }
         }
 
@@ -420,11 +422,15 @@ public class Game{
           else if(input.startsWith("su") || input.startsWith("support")){
             //"support 0" or "su 0" or "su 2" etc.
             //assume the value that follows su  is an integer.
-            int playerNumber = Integer.parseInt(input.substring(input.length()-1));
-            if (party.get(whichPlayer).getSpecialName().equals("sugar") && playerNumber==whichPlayer) {
+            try {
+              int playerNumber = Integer.parseInt(input.substring(input.length()-1));
+              if (party.get(whichPlayer).getSpecialName().equals("sugar") && playerNumber==whichPlayer) {
+                msg = party.get(whichPlayer).support();
+              } else {
+                msg = party.get(whichPlayer).support(party.get(playerNumber));
+              }
+            } catch (Exception ex) {
               msg = party.get(whichPlayer).support();
-            } else {
-              msg = party.get(whichPlayer).support(party.get(playerNumber));
             }
           }
           if (party.get(whichPlayer).hasSalmonella()) {
